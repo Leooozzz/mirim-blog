@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
 import { singup_schema } from "../schemas/singup.schema";
-import { create_user } from "../services/user.service";
+import { create_user, verify_user } from "../services/user.service";
+import { create_token } from "../services/auth.service";
+import { singin_schema } from "../schemas/singin.schema";
 
-export const singup: RequestHandler = async (req, res) => { 
-
+export const singup: RequestHandler = async (req, res) => {
   const data = singup_schema.safeParse(req.body);
 
   if (!data.success) {
@@ -16,16 +17,38 @@ export const singup: RequestHandler = async (req, res) => {
     return res.status(400).json({ error: "Error creating user." });
   }
 
-  const token = '';
+  const token = create_token(new_user);
 
   res.status(201).json({
-    user:{
-        id: new_user.id,
-        name: new_user.name,
-        email: new_user.email
+    user: {
+      id: new_user.id,
+      name: new_user.name,
+      email: new_user.email,
     },
-    token
-  })
+    token,
+  });
 };
 export const validate: RequestHandler = async (req, res) => {};
-export const singin: RequestHandler = async (req, res) => {};
+
+export const singin: RequestHandler = async (req, res) => {
+  const data = singin_schema.safeParse(req.body);
+  if (!data.success) {
+    return res.status(400).json({ error: data.error.flatten() });
+  }
+
+  const user = await verify_user(data.data);
+
+  if (!user) {
+    return res.status(403).json({ error: "Access denied" });
+  }
+  const token = create_token(user);
+
+  res.json({
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
+    token
+  });
+};

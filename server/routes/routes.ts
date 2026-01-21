@@ -13,7 +13,7 @@ export const router = Router();
 //router.delete('/admin/post/:slug', admin_controller.remove_post)
 
 //router.post('/auth/validate', auth_controller.validate)
-//router.post('/auth/singin',auth_controller.singin )
+router.post('/auth/singin',auth_controller.singin )
 router.post("/auth/singup", auth_controller.singup);
 
 //router.get('/posts',post_controller.get_all_post)
