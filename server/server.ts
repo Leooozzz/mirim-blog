@@ -13,7 +13,7 @@ server.use(cors())
 server.use(helmet())
 server.use(express.static('public'))
 server.use(express.json())
-server.use(router)
+server.use('/api',router)
 
 server.use((err:any,req:Request,res:Response,next:NextFunction)=>{
     console.error(err)
