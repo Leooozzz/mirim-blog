@@ -3,6 +3,7 @@ import { Router } from "express";
 import * as post_controller from "../controllers/post.controller";
 import * as admin_controller from "../controllers/admin.controller";
 import * as auth_controller from "../controllers/auth.controller";
+import { private_route } from "../middlewares/private.route";
 
 export const router = Router();
 
@@ -12,7 +13,7 @@ export const router = Router();
 //router.put('/admin/post/:slug', admin_controller.edit_post)
 //router.delete('/admin/post/:slug', admin_controller.remove_post)
 
-//router.post('/auth/validate', auth_controller.validate)
+router.post('/auth/validate',private_route,auth_controller.validate)
 router.post('/auth/singin',auth_controller.singin )
 router.post("/auth/singup", auth_controller.singup);
 

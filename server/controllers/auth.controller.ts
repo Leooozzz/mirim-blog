@@ -1,8 +1,9 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Response } from "express";
 import { singup_schema } from "../schemas/singup.schema";
 import { create_user, verify_user } from "../services/user.service";
 import { create_token } from "../services/auth.service";
 import { singin_schema } from "../schemas/singin.schema";
+import { extended_request } from "../types/extends.request";
 
 export const singup: RequestHandler = async (req, res) => {
   const data = singup_schema.safeParse(req.body);
@@ -28,7 +29,6 @@ export const singup: RequestHandler = async (req, res) => {
     token,
   });
 };
-export const validate: RequestHandler = async (req, res) => {};
 
 export const singin: RequestHandler = async (req, res) => {
   const data = singin_schema.safeParse(req.body);
@@ -51,4 +51,8 @@ export const singin: RequestHandler = async (req, res) => {
     },
     token
   });
+};
+
+export const validate = async (req:extended_request, res:Response) => {
+    res.json({user:req.user})
 };

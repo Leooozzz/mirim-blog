@@ -27,3 +27,14 @@ export const verify_user = async({email,password}:user_type_singin) => {
 
   
 }
+export  const get_user_by_id = async (id:number) =>{
+  return await prisma.user.findUnique({
+    where:{id},
+    select:{
+      id:true,
+      name:true,
+      email:true,
+      status:true
+    }
+  })
+}
