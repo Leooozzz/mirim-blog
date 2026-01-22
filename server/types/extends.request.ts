@@ -1,4 +1,4 @@
-import { User } from "@/generated/prisma/client";
+import { User } from "../../prisma/prisma/client";
 import { Request } from "express";
 
 type user_without_password = Omit<User, "password">;

@@ -4,10 +4,11 @@ import * as post_controller from "../controllers/post.controller";
 import * as admin_controller from "../controllers/admin.controller";
 import * as auth_controller from "../controllers/auth.controller";
 import { private_route } from "../middlewares/private.route";
+import { upload } from "../lib/multer";
 
 export const router = Router();
 
-//router.post('/admin/post', admin_controller.add_post)
+router.post('/admin/posts',private_route,upload.single('cover'), admin_controller.add_post)
 //router.get('/admin/post', admin_controller.get_posts)
 //router.get('/admin/post/:slug', admin_controller.get_post)
 //router.put('/admin/post/:slug', admin_controller.edit_post)

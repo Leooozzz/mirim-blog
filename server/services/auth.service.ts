@@ -1,4 +1,4 @@
-import { User } from "@/generated/prisma/client";
+import { User } from "../../prisma/prisma/client";
 import { create_jsonwebtoken, read_jsonwebtoken } from "../lib/jwt";
 import { Request } from "express";
 import { token_type_payload } from "../types/token.types";
