@@ -11,8 +11,8 @@ export const router = Router();
 router.post('/admin/posts',private_route,upload.single('cover'), admin_controller.add_post)
 //router.get('/admin/post', admin_controller.get_posts)
 //router.get('/admin/post/:slug', admin_controller.get_post)
-router.put('/admin/post/:slug',private_route,upload.single('cover'),admin_controller.edit_post)
-//router.delete('/admin/post/:slug', admin_controller.remove_post)
+router.put('/admin/posts/:slug',private_route,upload.single('cover'),admin_controller.edit_post)
+router.delete('/admin/post/:slug',private_route, admin_controller.remove_post)
 
 router.post('/auth/validate',private_route,auth_controller.validate)
 router.post('/auth/singin',auth_controller.singin )

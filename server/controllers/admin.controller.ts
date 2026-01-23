@@ -4,6 +4,7 @@ import { post_schema, update_post } from "../schemas/post.schema";
 import {
   create_post,
   create_post_slug,
+  delete_post,
   get_post_byslug,
   handle_file_cover,
   update_Post,
@@ -47,8 +48,6 @@ export const add_post = async (req: extended_request, res: Response) => {
     authorName: author?.name,
   });
 };
-export const get_posts = async (req: extended_request, res: Response) => {};
-export const get_post = async (req: extended_request, res: Response) => {};
 export const edit_post = async (req: extended_request, res: Response) => {
   const { slug } = req.params;
   const data = update_post.safeParse(req.body);
@@ -89,4 +88,15 @@ export const edit_post = async (req: extended_request, res: Response) => {
     }
   })
 };
-export const remove_post = async (req: extended_request, res: Response) => {};
+export const remove_post = async (req: extended_request, res: Response) => {
+  const {slug} = req.params
+  const post = await get_post_byslug(slug as string)
+  if(!post){
+    return res.json({error: "Non-existent post"})
+  }
+  await delete_post(post.slug)
+  res.json({error:null})
+
+};
+export const get_posts = async (req: extended_request, res: Response) => {};
+export const get_post = async (req: extended_request, res: Response) => {};

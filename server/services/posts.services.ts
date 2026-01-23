@@ -57,3 +57,8 @@ export const update_Post = async (slug:string, data: Prisma.PostUpdateInput) =>{
         data
     })
 }
+export const delete_post = async(slug:string) =>{
+    return await prisma.post.delete({
+        where:{slug}
+    })
+}
