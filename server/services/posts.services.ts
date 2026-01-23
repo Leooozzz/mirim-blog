@@ -2,7 +2,7 @@ import { v4 } from "uuid";
 import fs from "fs/promises";
 import slug from "slug";
 import { prisma } from "../lib/prisma";
-import {  create_type_post } from "../types/post.types";
+import { create_type_post } from "../types/post.types";
 import { Prisma } from "../../prisma/prisma/client";
 
 export const handle_file_cover = async (file: Express.Multer.File) => {
@@ -17,7 +17,28 @@ export const handle_file_cover = async (file: Express.Multer.File) => {
     return false;
   }
 };
-export const get_post_byslug = async (slug:string) => {
+export const get_all_post_service = async (page: number) => {
+  const per_page = 5;
+  if (page <= 0) {
+    return [];
+  }
+  const posts = await prisma.post.findMany({
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: per_page,
+    skip: (page - 1) * 5,
+  });
+  return posts;
+};
+export const get_post_byslug = async (slug: string) => {
   return await prisma.post.findUnique({
     where: { slug },
     include: {
@@ -47,18 +68,21 @@ export const create_post_slug = async (title: string) => {
   return new_slug;
 };
 
-export const create_post = async (data:create_type_post) =>{
-    return await prisma.post.create({data})
-}
+export const create_post = async (data: create_type_post) => {
+  return await prisma.post.create({ data });
+};
 
-export const update_Post = async (slug:string, data: Prisma.PostUpdateInput) =>{
-    return await prisma.post.update({
-        where:{slug},
-        data
-    })
-}
-export const delete_post = async(slug:string) =>{
-    return await prisma.post.delete({
-        where:{slug}
-    })
-}
+export const update_Post = async (
+  slug: string,
+  data: Prisma.PostUpdateInput,
+) => {
+  return await prisma.post.update({
+    where: { slug },
+    data,
+  });
+};
+export const delete_post = async (slug: string) => {
+  return await prisma.post.delete({
+    where: { slug },
+  });
+};

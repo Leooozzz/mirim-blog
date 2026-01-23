@@ -5,6 +5,7 @@ import {
   create_post,
   create_post_slug,
   delete_post,
+  get_all_post_service,
   get_post_byslug,
   handle_file_cover,
   update_Post,
@@ -98,5 +99,46 @@ export const remove_post = async (req: extended_request, res: Response) => {
   res.json({error:null})
 
 };
-export const get_posts = async (req: extended_request, res: Response) => {};
-export const get_post = async (req: extended_request, res: Response) => {};
+export const get_posts = async (req: extended_request, res: Response) => {
+  let page = 1
+  if(req.query.page){
+    page = parseInt(req.query.page as string)
+    if(page <= 0){
+      return res.json({error:"Page not found"})
+    }
+  }
+  let posts= await get_all_post_service(page)
+
+  const post_to_return = posts.map(posts=>({
+    id: posts.id,
+    status: posts.status,
+    title: posts.title,
+    createAt: posts.createdAt,
+    cover: cover_to_url(posts.cover),
+    authorName: posts.author?.name,
+    tags: posts.tags,
+    slug: posts.slug
+  }))
+  res.json({posts:post_to_return,page})
+};
+export const get_post = async (req: extended_request, res: Response) => {
+  const  {slug} = req.params
+  const post = await get_post_byslug(slug as string)
+  
+  if(!post){
+    return res.json("Non-existent post")
+  }
+    res.json({
+      post:{
+        id: post.id,
+        title: post.title,
+        createdAt: post.createdAt,
+        cover: cover_to_url(post.cover),
+        authorName: post.author?.name,
+        tags: post.tags,
+        slug:post.slug 
+
+      }
+    })
+
+};
