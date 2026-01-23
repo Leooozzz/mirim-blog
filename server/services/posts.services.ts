@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import slug from "slug";
 import { prisma } from "../lib/prisma";
 import {  create_type_post } from "../types/post.types";
+import { Prisma } from "../../prisma/prisma/client";
 
 export const handle_file_cover = async (file: Express.Multer.File) => {
   try {
@@ -16,7 +17,7 @@ export const handle_file_cover = async (file: Express.Multer.File) => {
     return false;
   }
 };
-const get_post_byslug = async (slug: string) => {
+export const get_post_byslug = async (slug:string) => {
   return await prisma.post.findUnique({
     where: { slug },
     include: {
@@ -48,4 +49,11 @@ export const create_post_slug = async (title: string) => {
 
 export const create_post = async (data:create_type_post) =>{
     return await prisma.post.create({data})
+}
+
+export const update_Post = async (slug:string, data: Prisma.PostUpdateInput) =>{
+    return await prisma.post.update({
+        where:{slug},
+        data
+    })
 }
