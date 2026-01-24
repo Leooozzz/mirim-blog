@@ -71,45 +71,44 @@ export const edit_post = async (req: extended_request, res: Response) => {
     title: data.data.title ?? undefined,
     tags: data.data.tags ?? undefined,
     body: data.data.body ?? undefined,
-    cover: cover_name ? cover_name :  undefined
+    cover: cover_name ? cover_name : undefined,
   });
 
-  const author = await get_user_by_id(updated_post.authorId)
+  const author = await get_user_by_id(updated_post.authorId);
 
   res.json({
-    post:{
-      id:updated_post.id,
-      status:updated_post.status,
-      title:updated_post.title,
-      slug:updated_post.slug,
+    post: {
+      id: updated_post.id,
+      status: updated_post.status,
+      title: updated_post.title,
+      slug: updated_post.slug,
       createdAt: updated_post.createdAt,
-      cover:cover_to_url(updated_post.cover),
+      cover: cover_to_url(updated_post.cover),
       tags: updated_post.tags,
-      authorName: author?.name
-    }
-  })
+      authorName: author?.name,
+    },
+  });
 };
 export const remove_post = async (req: extended_request, res: Response) => {
-  const {slug} = req.params
-  const post = await get_post_byslug(slug as string)
-  if(!post){
-    return res.json({error: "Non-existent post"})
+  const { slug } = req.params;
+  const post = await get_post_byslug(slug as string);
+  if (!post) {
+    return res.json({ error: "Non-existent post" });
   }
-  await delete_post(post.slug)
-  res.json({error:null})
-
+  await delete_post(post.slug);
+  res.json({ error: null });
 };
 export const get_posts = async (req: extended_request, res: Response) => {
-  let page = 1
-  if(req.query.page){
-    page = parseInt(req.query.page as string)
-    if(page <= 0){
-      return res.json({error:"Page not found"})
+  let page = 1;
+  if (req.query.page) {
+    page = parseInt(req.query.page as string);
+    if (page <= 0) {
+      return res.json({ error: "Page not found" });
     }
   }
-  let posts= await get_all_post_service(page)
+  let posts = await get_all_post_service(page);
 
-  const post_to_return = posts.map(posts=>({
+  const post_to_return = posts.map((posts) => ({
     id: posts.id,
     status: posts.status,
     title: posts.title,
@@ -117,28 +116,26 @@ export const get_posts = async (req: extended_request, res: Response) => {
     cover: cover_to_url(posts.cover),
     authorName: posts.author?.name,
     tags: posts.tags,
-    slug: posts.slug
-  }))
-  res.json({posts:post_to_return,page})
+    slug: posts.slug,
+  }));
+  res.json({ posts: post_to_return, page });
 };
 export const get_post = async (req: extended_request, res: Response) => {
-  const  {slug} = req.params
-  const post = await get_post_byslug(slug as string)
-  
-  if(!post){
-    return res.json("Non-existent post")
+  const { slug } = req.params;
+  const post = await get_post_byslug(slug as string);
+
+  if (!post) {
+    return res.json("Non-existent post");
   }
     res.json({
-      post:{
+      post: {
         id: post.id,
         title: post.title,
         createdAt: post.createdAt,
         cover: cover_to_url(post.cover),
         authorName: post.author?.name,
         tags: post.tags,
-        slug:post.slug 
-
-      }
-    })
-
+        slug: post.slug,
+      },
+    });
 };

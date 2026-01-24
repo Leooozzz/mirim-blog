@@ -17,6 +17,31 @@ export const handle_file_cover = async (file: Express.Multer.File) => {
     return false;
   }
 };
+export const get_post_published = async (page:number)=>{
+  const per_page = 5;
+  if (page <= 0) {
+    return [];
+  }
+  const posts = await prisma.post.findMany({
+    where:{
+      status:'PUBLISHED'
+    },
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: per_page,
+    skip: (page - 1) * 5,
+  });
+  return posts;
+}
+
 export const get_all_post_service = async (page: number) => {
   const per_page = 5;
   if (page <= 0) {
