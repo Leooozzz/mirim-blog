@@ -19,8 +19,8 @@ router.post('/auth/singin',auth_controller.singin )
 router.post("/auth/singup", auth_controller.singup);
 
 router.get('/posts',post_controller.get_all_post)
-//router.get('/posts/:slug',post_controller.get_post)
-//router.get('/posts/:slug/related',post_controller.get_related_post)
+router.get('/posts/:slug',post_controller.get_post)
+router.get('/posts/:slug/related',post_controller.get_related_post)
 
 router.get("/ping", (req, res) => {
   res.json({ pong: true });

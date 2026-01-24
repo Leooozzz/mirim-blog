@@ -17,14 +17,14 @@ export const handle_file_cover = async (file: Express.Multer.File) => {
     return false;
   }
 };
-export const get_post_published = async (page:number)=>{
+export const get_post_published = async (page: number) => {
   const per_page = 5;
   if (page <= 0) {
     return [];
   }
   const posts = await prisma.post.findMany({
-    where:{
-      status:'PUBLISHED'
+    where: {
+      status: "PUBLISHED",
     },
     include: {
       author: {
@@ -40,7 +40,7 @@ export const get_post_published = async (page:number)=>{
     skip: (page - 1) * 5,
   });
   return posts;
-}
+};
 
 export const get_all_post_service = async (page: number) => {
   const per_page = 5;
@@ -110,4 +110,36 @@ export const delete_post = async (slug: string) => {
   return await prisma.post.delete({
     where: { slug },
   });
+};
+
+export const get_post_same_tags = async (slug: string) => {
+  const post = await prisma.post.findUnique({
+    where: { slug },
+  });
+  if (!post) return [];
+
+  const tags = post.tags.split(',');
+  if (tags.length === 0) return [];
+
+  const posts = await prisma.post.findMany({
+    where: {
+      status: "PUBLISHED",
+      slug: { not: slug },
+      OR: tags.map((term) => ({
+        tags: { contains: term, mode: "insensitive" },
+      })),
+    },
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 4,
+  });
+  return posts;
 };
