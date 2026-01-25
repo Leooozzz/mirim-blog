@@ -1,10 +1,8 @@
 export const Page = () => {
   return (
-    <body>
-      <main>
-        
-      </main>
-    </body>
+   <main>
+    
+   </main>
   );
 };
 

@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ModeToggle } from "./ui/modetoggle";
+
 import { Menu, X } from "lucide-react";
+import { ModeToggle } from "../ui/modetoggle";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
