@@ -16,7 +16,7 @@ router.delete('/admin/post/:slug',private_route, admin_controller.remove_post)
 
 router.post('/auth/validate',private_route,auth_controller.validate)
 router.post('/auth/singin',auth_controller.singin )
-router.post("/auth/singup", auth_controller.singup);
+router.post('/auth/singup', auth_controller.singup);
 
 router.get('/posts',post_controller.get_all_post)
 router.get('/posts/:slug',post_controller.get_post)
