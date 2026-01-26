@@ -50,7 +50,7 @@ export const LoginForm = () => {
             }else if(res.token){
                 await setAuthCookies(res.token)
                 authStore.setToken(res.token)
-                redirect('/Painel-administrador')
+                redirect('/admin')
             }
         })
     }
