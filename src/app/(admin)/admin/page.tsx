@@ -1,7 +1,7 @@
 import { requireAdmin } from "@/actions/auth.admin";
 import {
-  get_post_count_draft,
-  get_posts_count,
+  GetPostCountDraft,
+  GetPostCountPublished,
 } from "@/actions/get.quantity.posts";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -9,8 +9,8 @@ import Link from "next/link";
 export const Page = async () => {
   await requireAdmin();
 
-  const totalPosts = await get_posts_count();
-  const total_post_draft = await get_post_count_draft();
+  const totalPosts = await GetPostCountPublished();
+  const totalPostDraft = await GetPostCountDraft();
 
   return (
     <main className="p-8 min-h-screen bg-background text-foreground">
@@ -27,7 +27,7 @@ export const Page = async () => {
 
         <div className="bg-card text-card-foreground p-6 rounded-lg border shadow-sm">
           <h2 className="text-sm text-muted-foreground">Rascunhos</h2>
-          <p className="text-2xl font-bold">{total_post_draft ?? 0}</p>
+          <p className="text-2xl font-bold">{totalPostDraft ?? 0}</p>
         </div>
 
         <div className="bg-card text-card-foreground p-6 rounded-lg border shadow-sm">
@@ -50,7 +50,9 @@ export const Page = async () => {
             </Link>
           </Button>
           <Button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-            Gerenciar categorias
+            <Link href={"/admin/listar-categorias"}>
+                Gerenciar categorias
+            </Link>
           </Button>
         </div>
       </section>
@@ -58,4 +60,4 @@ export const Page = async () => {
   );
 };
 
-export default Page;
+export default Page

@@ -1,8 +1,8 @@
 import { prisma } from "../lib/prisma";
-import {  user_type_singin, user_type_singup } from "../types/user.types";
+import {  user_type_singin, user_type_singup } from "../types/userTypes";
 import bcrypt from "bcrypt";
 
-export const create_user = async ({ name, email, password }: user_type_singup) => {
+export const CreateUser = async ({ name, email, password }: user_type_singup) => {
   email = email.toLowerCase();
 
   const user = await prisma.user.findFirst({ where: { email } });
@@ -15,7 +15,7 @@ export const create_user = async ({ name, email, password }: user_type_singup) =
   });
 };
 
-export const verify_user = async({email,password}:user_type_singin) => {
+export const VerifyUser = async({email,password}:user_type_singin) => {
   email = email.toLowerCase()
 
   const user = await prisma.user.findFirst({where:{email}})
@@ -27,7 +27,7 @@ export const verify_user = async({email,password}:user_type_singin) => {
 
   
 }
-export  const get_user_by_id = async (id:number) =>{
+export  const GetUserById = async (id:number) =>{
   return await prisma.user.findUnique({
     where:{id},
     select:{

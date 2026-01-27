@@ -2,10 +2,10 @@ import { v4 } from "uuid";
 import fs from "fs/promises";
 import slug from "slug";
 import { prisma } from "../lib/prisma";
-import { create_type_post } from "../types/post.types";
+import { create_type_post } from "../types/postTypes";
 import { Prisma } from "../../prisma/prisma/client";
 
-export const handle_file_cover = async (file: Express.Multer.File) => {
+export const HandleFileCover = async (file: Express.Multer.File) => {
   try {
     const allowed = ["image/jpeg", "image/jpg", "image/png"];
     if (allowed.includes(file.mimetype)) {
@@ -17,7 +17,7 @@ export const handle_file_cover = async (file: Express.Multer.File) => {
     return false;
   }
 };
-export const get_post_published = async (page: number) => {
+export const GetPostPublished = async (page: number) => {
   const per_page = 5;
   if (page <= 0) {
     return [];
@@ -42,7 +42,7 @@ export const get_post_published = async (page: number) => {
   return posts;
 };
 
-export const get_all_post_service = async (page: number) => {
+export const GetAllPostService = async (page: number) => {
   const per_page = 5;
   if (page <= 0) {
     return [];
@@ -63,7 +63,7 @@ export const get_all_post_service = async (page: number) => {
   });
   return posts;
 };
-export const get_post_byslug = async (slug: string) => {
+export const GetPostBySlug = async (slug: string) => {
   return await prisma.post.findUnique({
     where: { slug },
     include: {
@@ -75,14 +75,23 @@ export const get_post_byslug = async (slug: string) => {
     },
   });
 };
+export const incrementProductView=async(id:number)=>{
+  await prisma.post.update({
+    where:{id},
+    data:{
+      views:{increment:1}
+    }
+  })
+}
 
-export const create_post_slug = async (title: string) => {
+
+export const CreatePostSlug = async (title: string) => {
   let new_slug = slug(title);
   let keep_trying = true;
   let post_count = 1;
 
   while (keep_trying) {
-    const post = await get_post_byslug(new_slug);
+    const post = await GetPostBySlug(new_slug);
     if (!post) {
       keep_trying = false;
     } else {
@@ -93,11 +102,11 @@ export const create_post_slug = async (title: string) => {
   return new_slug;
 };
 
-export const create_post = async (data: create_type_post) => {
+export const  CreatePost = async (data: create_type_post) => {
   return await prisma.post.create({ data });
 };
 
-export const update_Post = async (
+export const UpdatePost = async (
   slug: string,
   data: Prisma.PostUpdateInput,
 ) => {
@@ -106,13 +115,13 @@ export const update_Post = async (
     data,
   });
 };
-export const delete_post = async (slug: string) => {
+export const DeletePost = async (slug: string) => {
   return await prisma.post.delete({
     where: { slug },
   });
 };
 
-export const get_post_same_tags = async (slug: string) => {
+export const GetPostSameTags = async (slug: string) => {
   const post = await prisma.post.findUnique({
     where: { slug },
   });
@@ -144,7 +153,7 @@ export const get_post_same_tags = async (slug: string) => {
   return posts;
 };
 
-export const get_number_post = async () =>{
+export const GetNumberPost = async () =>{
     const total = await prisma.post.count({
       where:{
         status:'PUBLISHED'
@@ -153,11 +162,19 @@ export const get_number_post = async () =>{
     return total;
 }
 
-export const get_number_post_draft = async () =>{
+export const GetNumberPostDraft = async () =>{
   const total = await prisma.post.count({
     where:{
       status:'DRAFT'
     }
   })
   return total
+}
+export const GetNumberPostViews = async () =>{
+  const total = await prisma.post.aggregate({
+    _sum:{
+      views:true
+    }
+  })
+  return total._sum ?? 0;
 }

@@ -3,7 +3,7 @@
 import { api } from "@/lib/api";
 import { cookies } from "next/headers";
 
-export const get_posts_count = async (): Promise<number> => {
+export const GetPostCountPublished = async (): Promise<number> => {
   const token = (await cookies()).get("auth_token")?.value;
 
   if (!token) {
@@ -11,7 +11,7 @@ export const get_posts_count = async (): Promise<number> => {
   }
 
   try {
-    const response = await api.get("/admin/posts/count", {
+    const response = await api.get("/admin/post/countPublished", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -27,7 +27,7 @@ export const get_posts_count = async (): Promise<number> => {
   return 0;
 };
 
-export const get_post_count_draft = async (): Promise<number> => {
+export const GetPostCountDraft = async (): Promise<number> => {
   const token = (await cookies()).get("auth_token")?.value;
   if (!token) {
     return 0;

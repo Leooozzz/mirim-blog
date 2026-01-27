@@ -1,9 +1,11 @@
 import { RequestHandler, Response } from "express";
-import { singup_schema } from "../schemas/singup.schema";
-import { create_user, verify_user } from "../services/user.service";
-import { create_token } from "../services/auth.service";
-import { singin_schema } from "../schemas/singin.schema";
-import { extended_request } from "../types/extends.request";
+import { singup_schema } from "../schemas/singupSchema";
+import { CreateUser, VerifyUser } from "../services/userService";
+import { singin_schema } from "../schemas/singinSchema";
+import { ExtendedRequest } from "../types/extendsRequest";
+import { CreateToken } from "../services/authservice";
+
+
 
 export const singup: RequestHandler = async (req, res) => {
   const data = singup_schema.safeParse(req.body);
@@ -12,13 +14,13 @@ export const singup: RequestHandler = async (req, res) => {
     return res.status(400).json({ error: data.error.flatten() });
   }
 
-  const new_user = await create_user(data.data);
+  const new_user = await CreateUser(data.data);
 
   if (!new_user) {
     return res.status(400).json({ error: "Error creating user." });
   }
 
-  const token = create_token(new_user);
+  const token = CreateToken(new_user);
 
   res.status(201).json({
     user: {
@@ -36,12 +38,12 @@ export const singin: RequestHandler = async (req, res) => {
     return res.status(400).json({ error: data.error.flatten() });
   }
 
-  const user = await verify_user(data.data);
+  const user = await VerifyUser(data.data);
 
   if (!user) {
     return res.status(403).json({ error: "Access denied" });
   }
-  const token = create_token(user);
+  const token = CreateToken(user);
 
   res.json({
     user: {
@@ -53,6 +55,6 @@ export const singin: RequestHandler = async (req, res) => {
   });
 };
 
-export const validate = async (req:extended_request, res:Response) => {
+export const validate = async (req:ExtendedRequest, res:Response) => {
     res.json({user:req.user})
 };
