@@ -143,3 +143,21 @@ export const get_post_same_tags = async (slug: string) => {
   });
   return posts;
 };
+
+export const get_number_post = async () =>{
+    const total = await prisma.post.count({
+      where:{
+        status:'PUBLISHED'
+      }
+    })
+    return total;
+}
+
+export const get_number_post_draft = async () =>{
+  const total = await prisma.post.count({
+    where:{
+      status:'DRAFT'
+    }
+  })
+  return total
+}

@@ -1,10 +1,11 @@
 "use server"
+
 import { api } from "@/lib/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function requireAdmin() {
-  const token = (await cookies()).get("auth_token")?.value;
+  const token =  (await cookies()).get("auth_token")?.value;
 
   if (!token) {
     redirect("/login-admin");

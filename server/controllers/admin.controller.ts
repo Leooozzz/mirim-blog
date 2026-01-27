@@ -6,12 +6,15 @@ import {
   create_post_slug,
   delete_post,
   get_all_post_service,
+  get_number_post,
+  get_number_post_draft,
   get_post_byslug,
   handle_file_cover,
   update_Post,
 } from "../services/posts.services";
 import { get_user_by_id } from "../services/user.service";
 import { cover_to_url } from "../utils/cover.to.url";
+
 
 export const add_post = async (req: extended_request, res: Response) => {
   if (!req.user) {
@@ -115,7 +118,7 @@ export const get_posts = async (req: extended_request, res: Response) => {
     createAt: posts.createdAt,
     cover: cover_to_url(posts.cover),
     authorName: posts.author?.name,
-    tags: posts.tags,
+    tags: posts.tags, 
     slug: posts.slug,
   }));
   res.json({ posts: post_to_return, page });
@@ -139,3 +142,15 @@ export const get_post = async (req: extended_request, res: Response) => {
       },
     });
 };
+
+
+export const count_Posts = async(req:extended_request, res:Response) =>{
+    const posts = await get_number_post()
+    return res.json({posts})
+}
+
+export const count_post_draft =  async (req:extended_request,res:Response) => {
+  
+  const posts = await get_number_post_draft()
+  return res.json({posts})
+}

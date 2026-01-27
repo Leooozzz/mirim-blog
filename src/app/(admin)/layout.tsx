@@ -48,8 +48,11 @@ export default async function Layout({
 
         <main className="flex-1 p-0 overflow-auto">
           {children}
-          <Footer />
+          
         </main>
+        <footer>
+          <Footer/>
+        </footer>
       </SidebarInset>
     </SidebarProvider>
   );
