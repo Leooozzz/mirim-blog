@@ -10,10 +10,17 @@ enum PostStatus {
   DRAFT
   PUBLISHED
 }
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+
+  post Post[]
+}
 model Post {
   id Int @id @default(autoincrement())
   slug String @unique
   authorId Int
+  categoryId Int?
   status PostStatus @default(PUBLISHED)
   title String
   body String
@@ -21,8 +28,12 @@ model Post {
   updateAt  DateTime @default(now())
   cover String
   tags String @default("")
+  views Int @default(0)
+
 
   author User? @relation(fields: [authorId],references: [id])
+
+  category Category? @relation(fields: [categoryId], references: [id])
 }
 model User{
   id Int @id @default(autoincrement())

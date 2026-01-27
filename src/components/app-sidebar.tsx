@@ -1,6 +1,4 @@
-
-
-import { FilePlus, Home, List, UserCog, Users } from "lucide-react";
+import { FilePlus, FolderPlus, Home, LayoutList, List, UserCog, Users } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -29,6 +27,16 @@ const items = [
     title: "Listar posts",
     url: "/admin/listar-post",
     icon: List,
+  },
+  {
+    title: "Criar categoria",
+    url: "/admin/categorias",
+    icon: FolderPlus,
+  },
+  {
+    title: "Listar categorias",
+    url: "/admin/listar-categorias",
+    icon: LayoutList,
   },
   {
     title: "Administradores",

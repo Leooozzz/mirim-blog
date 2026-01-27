@@ -14,8 +14,10 @@ import {
 } from "../services/posts.services";
 import { get_user_by_id } from "../services/user.service";
 import { cover_to_url } from "../utils/cover.to.url";
+import { category_schema } from "../schemas/category.schema";
+import { create_category } from "../services/category.service";
 
-
+//CRIAR POST E SLUG
 export const add_post = async (req: extended_request, res: Response) => {
   if (!req.user) {
     return false;
@@ -46,12 +48,15 @@ export const add_post = async (req: extended_request, res: Response) => {
     id: new_post.id,
     slug: new_post.slug,
     title: new_post.title,
+    body: new_post.body,
     createdAt: new_post.createdAt,
     cover: cover_to_url(new_post.cover),
     tags: new_post.tags,
     authorName: author?.name,
   });
 };
+
+//EDITAR
 export const edit_post = async (req: extended_request, res: Response) => {
   const { slug } = req.params;
   const data = update_post.safeParse(req.body);
@@ -84,6 +89,7 @@ export const edit_post = async (req: extended_request, res: Response) => {
       id: updated_post.id,
       status: updated_post.status,
       title: updated_post.title,
+      body: updated_post.body,
       slug: updated_post.slug,
       createdAt: updated_post.createdAt,
       cover: cover_to_url(updated_post.cover),
@@ -92,6 +98,8 @@ export const edit_post = async (req: extended_request, res: Response) => {
     },
   });
 };
+
+//DELETAR 
 export const remove_post = async (req: extended_request, res: Response) => {
   const { slug } = req.params;
   const post = await get_post_byslug(slug as string);
@@ -101,6 +109,8 @@ export const remove_post = async (req: extended_request, res: Response) => {
   await delete_post(post.slug);
   res.json({ error: null });
 };
+
+//PEGAR POSTS
 export const get_posts = async (req: extended_request, res: Response) => {
   let page = 1;
   if (req.query.page) {
@@ -118,11 +128,12 @@ export const get_posts = async (req: extended_request, res: Response) => {
     createAt: posts.createdAt,
     cover: cover_to_url(posts.cover),
     authorName: posts.author?.name,
-    tags: posts.tags, 
+    tags: posts.tags,
     slug: posts.slug,
   }));
   res.json({ posts: post_to_return, page });
 };
+
 export const get_post = async (req: extended_request, res: Response) => {
   const { slug } = req.params;
   const post = await get_post_byslug(slug as string);
@@ -130,27 +141,48 @@ export const get_post = async (req: extended_request, res: Response) => {
   if (!post) {
     return res.json("Non-existent post");
   }
-    res.json({
-      post: {
-        id: post.id,
-        title: post.title,
-        createdAt: post.createdAt,
-        cover: cover_to_url(post.cover),
-        authorName: post.author?.name,
-        tags: post.tags,
-        slug: post.slug,
-      },
-    });
+  res.json({
+    post: {
+      id: post.id,
+      title: post.title,
+      body: post.body,
+      createdAt: post.createdAt,
+      cover: cover_to_url(post.cover),
+      authorName: post.author?.name,
+      tags: post.tags,
+      slug: post.slug,
+    },
+  });
+};
+
+//COUNT 
+export const count_Posts = async (req: extended_request, res: Response) => {
+  const posts = await get_number_post();
+  return res.json({ posts });
+};
+
+export const count_post_draft = async (
+  req: extended_request,
+  res: Response,
+) => {
+  const posts = await get_number_post_draft();
+  return res.json({ posts });
 };
 
 
-export const count_Posts = async(req:extended_request, res:Response) =>{
-    const posts = await get_number_post()
-    return res.json({posts})
-}
+//CATEGORIAS
+export const add_category = async (req: extended_request, res: Response) => {
+  if (!req.user) {
+    return false;
+  }
+  const data = category_schema.safeParse(req.body);
+  if (!data.success) {
+    return res.status(400).json({ error: data.error.flatten() });
+  }
+  const category = await create_category(data.data.name);
+  return res.status(201).json({
+    id: category.id,
+    name: category.name,
+  });
+};
 
-export const count_post_draft =  async (req:extended_request,res:Response) => {
-  
-  const posts = await get_number_post_draft()
-  return res.json({posts})
-}
