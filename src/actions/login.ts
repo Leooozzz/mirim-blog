@@ -1,10 +1,10 @@
 "use server"
 
 import { api } from "@/lib/api"
-import { login_data } from "@/types/login"
+import { LoginData} from "@/types/login"
 
 
-export const login=async({email,password}:login_data):Promise<{error:string|null,token?:string}>=>{
+export const login=async({email,password}:LoginData):Promise<{error:string|null,token?:string}>=>{
     try{
         const response=await api.post('/auth/singin',{email,password})
         if(response.status === 200 && response.data.token){

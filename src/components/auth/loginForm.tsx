@@ -10,14 +10,14 @@ import { useAuthStore } from "@/app/store/auth";
 import { redirect } from "next/navigation";
 
 
-type error_structure = {
+type ErrorStructure = {
   email?: string;
   password?: string;
   form?: string;
 };
 export const LoginForm = () => {
     const [form,setForm]=useState({email:'',password:''})
-    const [error,setError]=useState<error_structure>({});
+    const [error,setError]=useState<ErrorStructure>({});
     const [pending,startTransition]=useTransition()
     const authStore=useAuthStore(state=>state)
 

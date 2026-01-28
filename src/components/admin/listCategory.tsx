@@ -1,5 +1,4 @@
 
-
 import { GetCategories } from "@/actions/category";
 import { Button } from "../ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
@@ -9,7 +8,7 @@ export const ListCategory = async () => {
     const categories = await GetCategories();
 
   return (
-    <div className="w-full max-w-3xl bg-white dark:bg-blue-950 p-8 rounded-lg shadow-md space-y-6">
+    <div className="w-full max-w-3xl p-8 rounded-lg shadow-md space-y-6">
       <h2 className="text-2xl font-bold">Categorias</h2>
 
       <Table>
@@ -30,7 +29,6 @@ export const ListCategory = async () => {
                 <Button variant="outline" size="sm">
                   Editar
                 </Button>
-
                 <DeleteCategoryButton id={cat.id}/>
               </TableCell>
             </TableRow>

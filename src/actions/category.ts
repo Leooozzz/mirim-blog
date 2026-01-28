@@ -2,8 +2,8 @@ import { api } from "@/lib/api";
 import { cookies } from "next/headers";
 
 type Category = {
-id: number;
-name: string;
+  id: number;
+  name: string;
 };
 
 export const GetCategories = async (): Promise<Category[]> => {

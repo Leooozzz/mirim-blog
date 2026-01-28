@@ -1,6 +1,7 @@
 "use server";
 
 import { api } from "@/lib/api";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 type DeleteCategoryProps = {
@@ -23,7 +24,9 @@ export async function deleteCategory({ id }: DeleteCategoryProps): Promise<void>
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      
     });
+    revalidatePath("/admin/categories")
   } catch (error) {
     console.error("Erro ao deletar categoria:", error);
     throw new Error("Não foi possível deletar o categoria");
