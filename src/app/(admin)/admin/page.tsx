@@ -1,16 +1,18 @@
-import { requireAdmin } from "@/actions/auth.admin";
+import { requireAdmin } from "@/actions/authAdmin";
 import {
   GetPostCountDraft,
   GetPostCountPublished,
-} from "@/actions/get.quantity.posts";
+  GetViewsCount,
+} from "@/actions/getQuantityPosts";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export const Page = async () => {
+const Page = async () => {
   await requireAdmin();
 
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
+  const totalViews = await GetViewsCount()
 
   return (
     <main className="p-8 min-h-screen bg-background text-foreground">
@@ -32,7 +34,7 @@ export const Page = async () => {
 
         <div className="bg-card text-card-foreground p-6 rounded-lg border shadow-sm">
           <h2 className="text-sm text-muted-foreground">Visualizações</h2>
-          <p className="text-2xl font-bold">3.456</p>
+          <p className="text-2xl font-bold">{totalViews ?? 0}</p>
         </div>
       </section>
 

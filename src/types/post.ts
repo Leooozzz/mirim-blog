@@ -1,8 +1,8 @@
-export type get_post_type = {
+export type GetPostType = {
     id:number,
     status:string,
     title:string,
-    createdAt:string,
+    createAt:string,
     cover:string,
     authorName:string,
     tags:string,

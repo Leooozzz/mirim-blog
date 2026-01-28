@@ -1,19 +1,37 @@
-"use server"
+"use server";
 import { api } from "@/lib/api";
-import { get_post_type } from "@/types/get.posts";
+import { GetPostType } from "@/types/post";
+import { cookies } from "next/headers";
 
-export const get_published_post = async(token:string):Promise<get_post_type[]> => {
-    try{
-        const response = await api.get('/admin/post',{
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        if(response.status === 200){
-            return response.data as get_post_type []
-        }
-    }catch(err){
-        console.error("Erro ao buscar posts:", err);
+export const GetPost = async (): Promise<GetPostType[]> => {
+  const token = (await cookies()).get("auth_token")?.value;
+  if (!token) return [];
+
+  try {
+    const response = await api.get("/admin/posts", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data.posts.map((post: any) => {
+        const date = new Date(post.createAt);
+
+        return {
+          ...post,
+          status: post.status === "PUBLISHED" ? "Publicado" : "Rascunho",
+          createAt: new Intl.DateTimeFormat("pt-BR", {
+            dateStyle: "short",
+            timeStyle: "short",
+            timeZone: "America/Sao_Paulo",
+          }).format(date),
+        };
+      });
     }
-    return []
-}
+  } catch (err) {
+    console.error("Erro ao buscar posts:", err);
+  }
+
+  return [];
+};

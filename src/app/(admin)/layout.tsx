@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/footer";
 import { ModeToggle } from "@/components/ui/modetoggle";
 import Image from "next/image";
 import Link from "next/link";
-import { requireAdmin } from "@/actions/auth.admin";
+import { requireAdmin } from "@/actions/authAdmin";
 import AppSidebar from "@/components/app-sidebar";
 
 
