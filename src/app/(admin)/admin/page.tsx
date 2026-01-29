@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/actions/authAdmin";
+import { GetPost } from "@/actions/getPosts";
 import {
   GetPostCountDraft,
   GetPostCountPublished,
@@ -13,7 +14,8 @@ const Page = async () => {
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
   const totalViews = await GetViewsCount()
-
+  const postsRecents = await GetPost()
+  
   return (
     <main className="p-8 min-h-screen bg-background text-foreground">
       <header className="mb-8">

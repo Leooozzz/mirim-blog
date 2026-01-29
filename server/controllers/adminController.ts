@@ -49,7 +49,7 @@ export const AddPost = async (req: ExtendedRequest, res: Response) => {
     return res.status(400).json({ error: "Image not allowed" });
   }
 
-  // ✅ reaproveitando sua função
+
   const category = await GetCategoryById(data.data.categoryId);
   if (!category) {
     return res.status(404).json({ error: "Category not found" });

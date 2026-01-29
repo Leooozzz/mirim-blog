@@ -1,6 +1,7 @@
 "use server";
 
 import { api } from "@/lib/api";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 type DeletePostProps = {
@@ -24,6 +25,7 @@ export async function deletePost({ slug }: DeletePostProps): Promise<void> {
         Authorization: `Bearer ${token}`,
       },
     });
+    revalidatePath("/admin/listar-post")
   } catch (error) {
     console.error("Erro ao deletar post:", error);
     throw new Error("Não foi possível deletar o post");
