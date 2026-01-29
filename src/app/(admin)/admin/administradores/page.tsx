@@ -5,7 +5,7 @@ interface Admin {
   id: number;
   name: string;
   email: string;
-  role: string; // Ex: "Super Admin", "Editor"
+  role: string; 
   createdAt: string;
 }
 
@@ -23,15 +23,15 @@ export const Page = () => {
   };
 
   return (
-    <main className="p-8 bg-gray-100 min-h-screen">
+    <main className="p-8 min-h-screen">
       <header className="mb-8">
         <h1 className="text-3xl font-bold">Administradores</h1>
         <p className="text-gray-600">Gerencie os administradores do painel</p>
       </header>
 
-      <div className="bg-white shadow rounded overflow-x-auto">
+      <div className=" shadow rounded overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
@@ -40,7 +40,7 @@ export const Page = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200">
             {admins.map((admin) => (
               <tr key={admin.id}>
                 <td className="px-6 py-4">{admin.name}</td>

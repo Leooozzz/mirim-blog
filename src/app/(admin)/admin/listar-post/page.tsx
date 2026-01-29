@@ -1,7 +1,5 @@
-import { requireAdmin } from "@/actions/authAdmin";
-import { GetPost } from "@/actions/getPosts";
-import { ListPosts } from "@/components/admin/listPost";
-import { Button } from "@/components/ui/button";
+import { ListPosts } from "@/components/admin/posts/listPost";
+
 
 export const ListarPost = async () => {
   

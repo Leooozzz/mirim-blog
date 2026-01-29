@@ -1,20 +1,19 @@
 "use client";
 
-
-import { deleteCategory } from "@/actions/deleteCategory";
-import { Button } from "../ui/button";
+import { deletePost } from "@/actions/deletePost";
+import { Button } from "../../ui/button";
 import { useTransition } from "react";
 
 type Props = {
-  id: Number;
+  slug: string;
 };
 
-export function DeleteCategoryButton({ id }: Props) {
+export function DeletePostButton({ slug }: Props) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
     startTransition(async () => {
-      await deleteCategory({ id });
+      await deletePost({ slug });
     });
   }
 

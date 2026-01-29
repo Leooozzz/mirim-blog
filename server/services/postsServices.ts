@@ -49,6 +49,11 @@ export const GetAllPostService = async (page: number) => {
   }
   const posts = await prisma.post.findMany({
     include: {
+      category:{
+        select:{
+          name:true
+        }
+      },
       author: {
         select: {
           name: true,
@@ -67,6 +72,11 @@ export const GetPostBySlug = async (slug: string) => {
   return await prisma.post.findUnique({
     where: { slug },
     include: {
+       category:{
+        select:{
+          name:true
+        }
+      },
       author: {
         select: {
           name: true,
@@ -103,8 +113,15 @@ export const CreatePostSlug = async (title: string) => {
 };
 
 export const  CreatePost = async (data: create_type_post) => {
-  return await prisma.post.create({ data });
+  return await prisma.post.create({ data,include:{
+    category:{
+      select:{
+        name:true
+      }
+    }
+  } });
 };
+
 
 export const UpdatePost = async (
   slug: string,
@@ -139,6 +156,11 @@ export const GetPostSameTags = async (slug: string) => {
       })),
     },
     include: {
+       category:{
+        select:{
+          name:true
+        }
+      },
       author: {
         select: {
           name: true,

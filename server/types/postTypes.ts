@@ -5,4 +5,5 @@ export type create_type_post = {
   tags: string;
   body: string;
   cover: string;
+  categoryId:number
 };

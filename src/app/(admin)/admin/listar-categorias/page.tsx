@@ -1,4 +1,5 @@
-import { ListCategory } from "@/components/admin/listCategory";
+import { ListCategory } from "@/components/admin/category/listCategory";
+
 
 
 const Page = async () => {
