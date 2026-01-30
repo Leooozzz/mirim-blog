@@ -3,6 +3,7 @@ export type GetPostType = {
   title: string;
   status: string;
   slug: string;
+  cover:string,
   createAt: string;
 };
 export type CreatePostFormData = {

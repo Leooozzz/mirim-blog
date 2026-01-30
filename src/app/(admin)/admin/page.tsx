@@ -5,17 +5,28 @@ import {
   GetPostCountPublished,
   GetViewsCount,
 } from "@/actions/getQuantityPosts";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
+import { DeletePostButton } from "@/components/admin/posts/deletePost";
 
 const Page = async () => {
   await requireAdmin();
 
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
-  const totalViews = await GetViewsCount()
-  const postsRecents = await GetPost()
-  
+  const totalViews = await GetViewsCount();
+  const posts = await GetPost(5);
+
   return (
     <main className="p-8 min-h-screen bg-background text-foreground">
       <header className="mb-8">
@@ -42,6 +53,77 @@ const Page = async () => {
 
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Posts recentes</h2>
+        <div className="rounded-xl border bg-card shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Título</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Criado em</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {posts.map((post) => (
+                <TableRow key={post.id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 overflow-hidden rounded-md border shrink-0">
+                        <img
+                          src={post.cover}
+                          alt={post.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+
+                      <span className="font-medium line-clamp-2">
+                        {post.title}
+                      </span>
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
+                    <Badge
+                      variant="secondary"
+                      className={
+                        post.status === "Publicado"
+                          ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
+                          : "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400"
+                      }
+                    >
+                      {post.status}
+                    </Badge>
+                  </TableCell>
+
+                  <TableCell className="text-muted-foreground">
+                    {new Date(post.createAt).toLocaleDateString("pt-BR")}
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex justify-end gap-2">
+                      <Button size="sm" variant="secondary">
+                        Editar
+                      </Button>
+                      <DeletePostButton slug={post.slug} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {posts.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="py-16 text-center text-sm text-muted-foreground"
+                  >
+                    Nenhum post encontrado.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </section>
 
       <section>
@@ -49,14 +131,10 @@ const Page = async () => {
 
         <div className="flex gap-4 flex-wrap">
           <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            <Link href={"/admin/criar-post"}>
-              Criar novo post 
-            </Link>
+            <Link href={"/admin/criar-post"}>Criar novo post</Link>
           </Button>
           <Button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-            <Link href={"/admin/listar-categorias"}>
-                Gerenciar categorias
-            </Link>
+            <Link href={"/admin/listar-categorias"}>Gerenciar categorias</Link>
           </Button>
         </div>
       </section>
@@ -64,4 +142,4 @@ const Page = async () => {
   );
 };
 
-export default Page
+export default Page;

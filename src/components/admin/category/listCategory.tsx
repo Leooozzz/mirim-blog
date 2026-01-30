@@ -14,7 +14,7 @@ export const ListCategory = async () => {
   const categories = await GetCategories();
 
   return (
-    <div className="w-full max-w-3xl space-y-6 rounded-xl border bg-card p-6 shadow-sm">
+    <div className="w-full max-w-3xl space-y-6 rounded-xl border bg-card p-6 shadow-sm ">
       <header className="space-y-1">
         <h2 className="text-2xl font-bold tracking-tight">
           Categorias

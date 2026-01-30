@@ -10,24 +10,23 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DeletePostButton } from "./deletePost";
+import Image from "next/image";
 
 export const ListPosts = async () => {
   const posts = await GetPost();
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
+    <div className="mx-auto max-w-6xl p-6">
       <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            Posts do Blog
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Posts do Blog</h1>
           <p className="text-sm text-muted-foreground">
             Gerencie seus posts publicados e rascunhos
           </p>
         </div>
       </header>
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="rounded-xl border bg-card shadow-s">
         <Table>
           <TableHeader>
             <TableRow>
@@ -41,8 +40,20 @@ export const ListPosts = async () => {
           <TableBody>
             {posts.map((post) => (
               <TableRow key={post.id}>
-                <TableCell className="font-medium">
-                  {post.title}
+                <TableCell>
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 overflow-hidden rounded-md border shrink-0">
+                      <img
+                        src={post.cover}
+                        alt={post.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    <span className="font-medium line-clamp-2">
+                      {post.title}
+                    </span>
+                  </div>
                 </TableCell>
 
                 <TableCell>
