@@ -138,14 +138,7 @@ export const RemovePost = async (req: ExtendedRequest, res: Response) => {
 
 //PEGAR POSTS
 export const GetPosts = async (req: ExtendedRequest, res: Response) => {
-  let page = 1;
-  if (req.query.page) {
-    page = parseInt(req.query.page as string);
-    if (page <= 0) {
-      return res.json({ error: "Page not found" });
-    }
-  }
-  let posts = await GetAllPostService(page);
+  let posts = await GetAllPostService();
 
   const post_to_return = posts.map((posts) => ({
     id: posts.id,
@@ -158,7 +151,7 @@ export const GetPosts = async (req: ExtendedRequest, res: Response) => {
     tags: posts.tags,
     slug: posts.slug,
   }));
-  res.json({ posts: post_to_return, page });
+  res.json({ posts: post_to_return });
 };
 
 export const GetPost = async (req: ExtendedRequest, res: Response) => {

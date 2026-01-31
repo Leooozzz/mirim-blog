@@ -4,7 +4,21 @@ export type GetPostType = {
   status: string;
   slug: string;
   cover:string,
+  body:string,
+  authorName:string
   createAt: string;
+};
+
+export type GetPostSlug = {
+  id: number;
+  title: string;
+  status: string;
+  slug: string;
+  cover:string,
+  body:string,
+  authorName:string
+  createdAt: string;
+
 };
 export type CreatePostFormData = {
   title: string;
@@ -13,3 +27,5 @@ export type CreatePostFormData = {
   categoryId: number;
   cover: File | null;
 };
+
+

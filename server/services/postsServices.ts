@@ -42,17 +42,13 @@ export const GetPostPublished = async (page: number) => {
   return posts;
 };
 
-export const GetAllPostService = async (page: number) => {
-  const per_page = 5;
-  if (page <= 0) {
-    return [];
-  }
+export const GetAllPostService = async () => {
   const posts = await prisma.post.findMany({
     include: {
-      category:{
-        select:{
-          name:true
-        }
+      category: {
+        select: {
+          name: true,
+        },
       },
       author: {
         select: {
@@ -63,19 +59,18 @@ export const GetAllPostService = async (page: number) => {
     orderBy: {
       createdAt: "desc",
     },
-    take: per_page,
-    skip: (page - 1) * 5,
   });
   return posts;
 };
+
 export const GetPostBySlug = async (slug: string) => {
   return await prisma.post.findUnique({
     where: { slug },
     include: {
-       category:{
-        select:{
-          name:true
-        }
+      category: {
+        select: {
+          name: true,
+        },
       },
       author: {
         select: {
@@ -85,15 +80,14 @@ export const GetPostBySlug = async (slug: string) => {
     },
   });
 };
-export const incrementProductView=async(id:number)=>{
+export const incrementProductView = async (id: number) => {
   await prisma.post.update({
-    where:{id},
-    data:{
-      views:{increment:1}
-    }
-  })
-}
-
+    where: { id },
+    data: {
+      views: { increment: 1 },
+    },
+  });
+};
 
 export const CreatePostSlug = async (title: string) => {
   let new_slug = slug(title);
@@ -112,16 +106,18 @@ export const CreatePostSlug = async (title: string) => {
   return new_slug;
 };
 
-export const  CreatePost = async (data: create_type_post) => {
-  return await prisma.post.create({ data,include:{
-    category:{
-      select:{
-        name:true
-      }
-    }
-  } });
+export const CreatePost = async (data: create_type_post) => {
+  return await prisma.post.create({
+    data,
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 };
-
 
 export const UpdatePost = async (
   slug: string,
@@ -144,7 +140,7 @@ export const GetPostSameTags = async (slug: string) => {
   });
   if (!post) return [];
 
-  const tags = post.tags.split(',');
+  const tags = post.tags.split(",");
   if (tags.length === 0) return [];
 
   const posts = await prisma.post.findMany({
@@ -156,10 +152,10 @@ export const GetPostSameTags = async (slug: string) => {
       })),
     },
     include: {
-       category:{
-        select:{
-          name:true
-        }
+      category: {
+        select: {
+          name: true,
+        },
       },
       author: {
         select: {
@@ -175,28 +171,28 @@ export const GetPostSameTags = async (slug: string) => {
   return posts;
 };
 
-export const GetNumberPost = async () =>{
-    const total = await prisma.post.count({
-      where:{
-        status:'PUBLISHED'
-      }
-    })
-    return total;
-}
-
-export const GetNumberPostDraft = async () =>{
+export const GetNumberPost = async () => {
   const total = await prisma.post.count({
-    where:{
-      status:'DRAFT'
-    }
-  })
-  return total
-}
-export const GetNumberPostViews = async () =>{
+    where: {
+      status: "PUBLISHED",
+    },
+  });
+  return total;
+};
+
+export const GetNumberPostDraft = async () => {
+  const total = await prisma.post.count({
+    where: {
+      status: "DRAFT",
+    },
+  });
+  return total;
+};
+export const GetNumberPostViews = async () => {
   const total = await prisma.post.aggregate({
-    _sum:{
-      views:true
-    }
-  })
+    _sum: {
+      views: true,
+    },
+  });
   return total._sum ?? 0;
-}
+};

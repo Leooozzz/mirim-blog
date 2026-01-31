@@ -1,4 +1,4 @@
-import { NextFunction, Router } from "express";
+import {  Router } from "express";
 
 import * as post_controller from "../controllers/postController";
 import * as AdminController from "../controllers/adminController";

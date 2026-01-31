@@ -21,11 +21,7 @@ export const GetPost = async (limit?: number): Promise<GetPostType[]> => {
         return {
           ...post,
           status: post.status === "PUBLISHED" ? "Publicado" : "Rascunho",
-          createAt: new Intl.DateTimeFormat("pt-BR", {
-            dateStyle: "short",
-            timeStyle: "short",
-            timeZone: "America/Sao_Paulo",
-          }).format(date),
+          createAt:post.createAt,
         };
       });
 

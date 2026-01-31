@@ -129,7 +129,7 @@ export const CreatePostForm = () => {
           <Label className="text-sm text-muted-foreground">Tags</Label>
           <Input
             name="tags"
-            placeholder="react, nextjs, node"
+            placeholder="noticias, banda"
             value={form.tags}
             onChange={handleInputChange}
             disabled={pending}

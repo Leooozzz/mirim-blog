@@ -25,7 +25,7 @@ const Page = async () => {
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
   const totalViews = await GetViewsCount();
-  const posts = await GetPost(5);
+  const posts = await GetPost(3);
 
   return (
     <main className="p-8 min-h-screen bg-background text-foreground">
@@ -77,9 +77,12 @@ const Page = async () => {
                         />
                       </div>
 
-                      <span className="font-medium line-clamp-2">
-                        {post.title}
-                      </span>
+                     <Link
+                      href={`/admin/post/${post.slug}`}
+                      className="font-medium line-clamp-2 hover:underline"
+                    >
+                      {post.title}
+                    </Link>
                     </div>
                   </TableCell>
 

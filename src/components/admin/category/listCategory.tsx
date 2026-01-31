@@ -14,7 +14,7 @@ export const ListCategory = async () => {
   const categories = await GetCategories();
 
   return (
-    <div className="w-full max-w-3xl space-y-6 rounded-xl border bg-card p-6 shadow-sm ">
+    <div className="w-full max-w-3xl space-y-6 rounded-xl border bg-card p-6 shadow-sm mb-10">
       <header className="space-y-1">
         <h2 className="text-2xl font-bold tracking-tight">
           Categorias
@@ -27,7 +27,6 @@ export const ListCategory = async () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-20">ID</TableHead>
             <TableHead>Nome</TableHead>
             <TableHead className="text-right">Ações</TableHead>
           </TableRow>
@@ -36,10 +35,6 @@ export const ListCategory = async () => {
         <TableBody>
           {categories.map((cat) => (
             <TableRow key={cat.id}>
-              <TableCell className="text-muted-foreground">
-                {cat.id}
-              </TableCell>
-
               <TableCell className="font-medium">
                 {cat.name}
               </TableCell>

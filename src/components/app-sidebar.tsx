@@ -43,11 +43,6 @@ const items = [
     url: "/admin/administradores",
     icon: Users,
   },
-  {
-    title: "Configurações perfil",
-    url: "/admin/configuracoes-perfil",
-    icon: UserCog,
-  },
 ];
 
 export default function AppSidebar() {

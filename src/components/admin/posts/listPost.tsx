@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { GetPost } from "@/actions/getPosts";
+
 import {
   Table,
   TableBody,
@@ -10,7 +12,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DeletePostButton } from "./deletePost";
-import Image from "next/image";
 
 export const ListPosts = async () => {
   const posts = await GetPost();
@@ -26,13 +27,14 @@ export const ListPosts = async () => {
         </div>
       </header>
 
-      <div className="rounded-xl border bg-card shadow-s">
+      <div className="rounded-xl border bg-card shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Título</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Criado em</TableHead>
+              <TableHead>Autor</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
@@ -50,9 +52,12 @@ export const ListPosts = async () => {
                       />
                     </div>
 
-                    <span className="font-medium line-clamp-2">
+                    <Link
+                      href={`/admin/post/${post.slug}`}
+                      className="font-medium line-clamp-2 hover:underline"
+                    >
                       {post.title}
-                    </span>
+                    </Link>
                   </div>
                 </TableCell>
 
@@ -74,10 +79,19 @@ export const ListPosts = async () => {
                 </TableCell>
 
                 <TableCell>
+                  <span className="font-medium line-clamp-2">
+                    {post.authorName}
+                  </span>
+                </TableCell>
+
+                <TableCell>
                   <div className="flex justify-end gap-2">
-                    <Button size="sm" variant="secondary">
-                      Editar
-                    </Button>
+                    <Link href={`/admin/post/${post.slug}`}>
+                      <Button size="sm" variant="secondary">
+                        Editar
+                      </Button>
+                    </Link>
+
                     <DeletePostButton slug={post.slug} />
                   </div>
                 </TableCell>
@@ -87,7 +101,7 @@ export const ListPosts = async () => {
             {posts.length === 0 && (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={5}
                   className="py-16 text-center text-sm text-muted-foreground"
                 >
                   Nenhum post encontrado.

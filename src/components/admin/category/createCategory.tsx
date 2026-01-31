@@ -44,7 +44,7 @@ export const CreateCategoryForm = () =>{
         });
       };
     return(
-       <div className="w-full max-w-md  p-8 rounded-lg shadow-md space-y-6">
+       <div className="w-full mx-auto max-w-2xl rounded-xl border bg-background p-6 shadow-sm">
         <h2 className="text-2xl font-bold text-center">Criar Categoria</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
