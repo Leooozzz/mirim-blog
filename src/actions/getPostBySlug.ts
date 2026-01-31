@@ -7,7 +7,9 @@ export const GetPostBySlug = async (
   slug: string
 ): Promise<GetPostSlug | null> => {
   const token = (await cookies()).get("auth_token")?.value;
-
+   if (!token) {
+    throw new Error("Usuário não autenticado");
+  }
   try {
     const response = await api.get(`/admin/post/${slug}`, {
       headers: {

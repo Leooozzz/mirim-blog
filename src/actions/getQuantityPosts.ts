@@ -7,7 +7,7 @@ export const GetPostCountPublished = async (): Promise<number> => {
   const token = (await cookies()).get("auth_token")?.value;
 
   if (!token) {
-    return 0;
+    throw new Error("Usuário não autenticado");
   }
 
   try {
@@ -30,7 +30,7 @@ export const GetPostCountPublished = async (): Promise<number> => {
 export const GetPostCountDraft = async (): Promise<number> => {
   const token = (await cookies()).get("auth_token")?.value;
   if (!token) {
-    return 0;
+    throw new Error("Usuário não autenticado");
   }
 
   try {
@@ -51,9 +51,8 @@ export const GetPostCountDraft = async (): Promise<number> => {
 export const GetViewsCount = async (): Promise<number> => {
   const token = (await cookies()).get("auth_token")?.value;
   if (!token) {
-    return 0;
+    throw new Error("Usuário não autenticado");
   }
-
   try {
     const response = await api.get("/admin/countViews", {
       headers: {

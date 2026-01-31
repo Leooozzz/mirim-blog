@@ -27,6 +27,11 @@ export const GetPostPublished = async (page: number) => {
       status: "PUBLISHED",
     },
     include: {
+      category:{
+        select:{
+          name:true
+        }
+      },
       author: {
         select: {
           name: true,

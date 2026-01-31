@@ -5,8 +5,10 @@ import { cookies } from "next/headers";
 
 export const GetPost = async (limit?: number): Promise<GetPostType[]> => {
   const token = (await cookies()).get("auth_token")?.value;
-  if (!token) return [];
-
+ 
+   if (!token) {
+    throw new Error("Usuário não autenticado");
+  }
   try {
     const response = await api.get("/admin/posts", {
       headers: {
@@ -16,7 +18,6 @@ export const GetPost = async (limit?: number): Promise<GetPostType[]> => {
 
     if (response.status === 200) {
       const posts = response.data.posts.map((post: any) => {
-        const date = new Date(post.createAt);
 
         return {
           ...post,

@@ -35,6 +35,7 @@ export const ListPosts = async () => {
               <TableHead>Status</TableHead>
               <TableHead>Criado em</TableHead>
               <TableHead>Autor</TableHead>
+              <TableHead>Categoria</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
@@ -44,7 +45,7 @@ export const ListPosts = async () => {
               <TableRow key={post.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 overflow-hidden rounded-md border shrink-0">
+                    <div className="h-10 w-10 overflow-hidden rounded-md border ">
                       <img
                         src={post.cover}
                         alt={post.title}
@@ -54,7 +55,7 @@ export const ListPosts = async () => {
 
                     <Link
                       href={`/admin/post/${post.slug}`}
-                      className="font-medium line-clamp-2 hover:underline"
+                      className="font-medium hover:underline"
                     >
                       {post.title}
                     </Link>
@@ -74,23 +75,27 @@ export const ListPosts = async () => {
                   </Badge>
                 </TableCell>
 
-                <TableCell className="text-muted-foreground">
+                <TableCell className="">
                   {new Date(post.createAt).toLocaleDateString("pt-BR")}
                 </TableCell>
 
                 <TableCell>
-                  <span className="font-medium line-clamp-2">
-                    {post.authorName}
+                  <span className="font-medium">{post.authorName}</span>
+                </TableCell>
+
+                <TableCell>
+                  <span className="font-medium text-blue-500">
+                    {post.category}
                   </span>
                 </TableCell>
 
                 <TableCell>
                   <div className="flex justify-end gap-2">
-                    <Link href={`/admin/post/${post.slug}`}>
-                      <Button size="sm" variant="secondary">
-                        Editar
-                      </Button>
-                    </Link>
+                    <Link href={`/admin/post/edit/${post.slug}`}>
+                        <Button size="sm" variant="secondary" className="cursor-pointer">
+                          Editar
+                        </Button>
+                      </Link>
 
                     <DeletePostButton slug={post.slug} />
                   </div>

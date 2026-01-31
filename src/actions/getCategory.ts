@@ -10,8 +10,8 @@ type Category = {
 
 export const GetCategories = async (): Promise<Category[]> => {
   const token = (await cookies()).get("auth_token")?.value;
-  if (!token) {
-    return [];
+ if (!token) {
+    throw new Error("Usuário não autenticado");
   }
 
   try {

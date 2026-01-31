@@ -3,53 +3,57 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
 import { Menu, X } from "lucide-react";
 import { ModeToggle } from "../ui/modetoggle";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
 
+  const closeMenu = () => setOpen(false);
+
   return (
-    <header className="w-full bg-blue-500 dark:bg-blue-800 px-4 py-3">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <header className="w-full bg-blue-500 dark:bg-blue-950">
+      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+
+        <Link href="/" className="flex items-center gap-3">
           <Image
             src="/front/logoatt.png"
             alt="Fundação Mirim"
-            width={100}
-            height={100}
+            width={60}
+            height={60}
+            priority
           />
           <h1 className="text-lg sm:text-2xl font-bold text-white whitespace-nowrap">
-            <Link href={"/"}>FUNDAÇÃO MIRIM</Link>
+            Fundação Mirim
           </h1>
-        </div>
+        </Link>
 
         <nav className="hidden md:flex">
-          <ul className="flex gap-6 text-white font-medium">
-            <li className="text-xl">
-              <Link href="/" className="hover:text-blue-950">
-                HOME
+          <ul className="flex gap-6 text-white font-bold text-lg">
+            <li>
+              <Link href="/" className="hover:text-blue-800">
+                Home
               </Link>
             </li>
-            <li className="text-xl">
-              <Link href="/Sobre" className="hover:text-blue-950">
-                SOBRE
+            <li>
+              <Link href="/Sobre" className="hover:text-blue-800">
+                Sobre
               </Link>
             </li>
-            <li className="text-xl">
-              <Link href="/Blog" className="hover:text-blue-950">
-                BLOG
+            <li>
+              <Link href="/Blog" className="hover:text-blue-800">
+                Blog
               </Link>
             </li>
-            <li className="text-xl">
-              <Link href="/Contatos" className="hover:text-blue-950">
-                CONTATOS
+            <li>
+              <Link href="/Contatos" className="hover:text-blue-800">
+                Contato
               </Link>
             </li>
           </ul>
         </nav>
 
+     
         <div className="flex items-center gap-3">
           <ModeToggle />
 
@@ -57,26 +61,36 @@ export const Header = () => {
             className="md:hidden text-white"
             onClick={() => setOpen(!open)}
             aria-label="Abrir menu"
+            aria-expanded={open}
           >
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
+     
       {open && (
-        <nav className="md:hidden mt-4">
-          <ul className="flex flex-col gap-4 bg-blue-600 dark:bg-blue-900 p-4 rounded-lg text-white font-medium">
+        <nav className="md:hidden px-4 pb-4">
+          <ul className="flex flex-col gap-4 bg-blue-600 dark:bg-blue-900 p-4 rounded-lg text-white font-bold text-center">
             <li>
-              <Link href="/">HOME</Link>
+              <Link href="/" onClick={closeMenu}>
+                HOME
+              </Link>
             </li>
             <li>
-              <Link href="/Sobre">SOBRE</Link>
+              <Link href="/Sobre" onClick={closeMenu}>
+                SOBRE
+              </Link>
             </li>
             <li>
-              <Link href="/Blog">BLOG</Link>
+              <Link href="/Blog" onClick={closeMenu}>
+                BLOG
+              </Link>
             </li>
             <li>
-              <Link href="/Contatos">CONTATOS</Link>
+              <Link href="/Contatos" onClick={closeMenu}>
+                CONTATOS
+              </Link>
             </li>
           </ul>
         </nav>

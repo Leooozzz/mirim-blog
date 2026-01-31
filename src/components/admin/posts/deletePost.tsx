@@ -23,6 +23,7 @@ export function DeletePostButton({ slug }: Props) {
       variant="destructive"
       onClick={handleDelete}
       disabled={isPending}
+      className="cursor-pointer"
     >
       {isPending ? "Excluindo..." : "Excluir"}
     </Button>

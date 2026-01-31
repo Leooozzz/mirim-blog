@@ -5,8 +5,9 @@ export type GetPostType = {
   slug: string;
   cover:string,
   body:string,
-  authorName:string
-  createAt: string;
+  authorName:string,
+  category:string,
+  createdAt: string;
 };
 
 export type GetPostSlug = {
@@ -18,6 +19,7 @@ export type GetPostSlug = {
   body:string,
   authorName:string
   createdAt: string;
+  category:string
 
 };
 export type CreatePostFormData = {

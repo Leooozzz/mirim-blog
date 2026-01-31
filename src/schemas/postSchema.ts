@@ -14,3 +14,11 @@ export type ErrorStructure = {
     categoryId?:string,
     form?:string
 }
+
+
+export const EditPostSchema = z.object({
+  title: z.string().optional(),
+  tags: z.string().optional(),
+  body: z.string().optional(),
+  categoryId:  z.coerce.number().optional(),
+})

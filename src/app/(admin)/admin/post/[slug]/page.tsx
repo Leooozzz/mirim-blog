@@ -31,19 +31,24 @@ export default async function Page({ params }: Props) {
               >
                 {post.status}
               </Badge>
-
-              <Link href="/admin/listar-post">
+             
+           
+           <div>
+            <Link href="/admin/listar-post">
                 <Button variant="ghost" size="sm">
                   ← Voltar
                 </Button>
-              </Link>
+             </Link>   
+           </div>
             </div>
 
-            
-
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>{new Date(post.createdAt).toLocaleDateString("pt-BR")}</span>
-
+              <span>
+                {new Date(post.createdAt).toLocaleDateString("pt-BR")}
+              </span>
+              <span className="font-medium text-blue-500">
+                {post.category}
+              </span>
               {post.authorName && (
                 <>
                   <Separator orientation="vertical" className="h-4" />
@@ -78,7 +83,9 @@ export default async function Page({ params }: Props) {
 
           <CardContent className="pt-8">
             <article className="flex flex-col gap-5">
-              <h1 className="text-3xl font-bold tracking-tight">{post.title}</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                {post.title}
+              </h1>
               {post.body}
             </article>
           </CardContent>

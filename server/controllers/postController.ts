@@ -16,17 +16,19 @@ export const GetAllPost: RequestHandler = async (req, res) => {
   }
   let post = await GetPostPublished(page);
 
-  const post_to_return = post.map((posts) => ({
+  const PostToReturn = post.map((posts) => ({
     id: posts.id,
     status: posts.status,
     title: posts.title,
     createdAt: posts.createdAt,
     cover: CoverToUrl(posts.cover),
     authorName: posts.author?.name,
+    body:posts.body,
+    category: posts.category?.name,
     tags: posts.tags,
     slug: posts.slug,
   }));
-  res.json({ post: post_to_return, page });
+  res.json({ post: PostToReturn, page });
 };
 
 export const GetPost: RequestHandler = async (req, res) => {

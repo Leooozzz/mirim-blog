@@ -17,7 +17,7 @@ router.get('/admin/post/countDraft', PrivateRoute, AdminController.CountPostDraf
 router.get('/admin/post/:slug', PrivateRoute, AdminController.GetPost)
 router.get('/admin/category',PrivateRoute,AdminController.GetCategory)
 router.get('/admin/countViews',PrivateRoute,AdminController.CountViews)
-router.put('/admin/posts/:slug', PrivateRoute, upload.single('cover'), AdminController.EditPost)
+router.put('/admin/post/:slug', PrivateRoute, upload.single('cover'), AdminController.EditPost)
 router.put('/admin/category/:id',PrivateRoute,AdminController.EditCategory)
 router.delete('/admin/post/:slug', PrivateRoute, AdminController.RemovePost)
 router.delete('/admin/category/:id',PrivateRoute,AdminController.DeletedCategory)

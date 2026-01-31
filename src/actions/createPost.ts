@@ -8,7 +8,9 @@ export const CreatePost = async (
 ): Promise<{ error: string | null }> => {
   const token = (await cookies()).get("auth_token")?.value;
 
-  if (!token) return { error: "Não autenticado" };
+ if (!token) {
+    throw new Error("Usuário não autenticado");
+  }
 
   try {
     await api.post("/admin/posts", data, {

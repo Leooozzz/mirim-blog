@@ -34,6 +34,7 @@ const Page = async () => {
         <p className="text-muted-foreground">Resumo das atividades do blog</p>
       </header>
 
+    
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-card text-card-foreground p-6 rounded-lg border shadow-sm">
           <h2 className="text-sm text-muted-foreground">Posts publicados</h2>
@@ -60,6 +61,8 @@ const Page = async () => {
                 <TableHead>Título</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Criado em</TableHead>
+                <TableHead>Autor</TableHead>
+                <TableHead>Categoria</TableHead>
                 <TableHead className="text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
@@ -69,7 +72,7 @@ const Page = async () => {
                 <TableRow key={post.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 overflow-hidden rounded-md border shrink-0">
+                      <div className="h-10 w-10 overflow-hidden rounded-md border ">
                         <img
                           src={post.cover}
                           alt={post.title}
@@ -77,12 +80,12 @@ const Page = async () => {
                         />
                       </div>
 
-                     <Link
-                      href={`/admin/post/${post.slug}`}
-                      className="font-medium line-clamp-2 hover:underline"
-                    >
-                      {post.title}
-                    </Link>
+                      <Link
+                        href={`/admin/post/${post.slug}`} 
+                        className="font-medium hover:underline"
+                      >
+                        {post.title}
+                      </Link>
                     </div>
                   </TableCell>
 
@@ -99,15 +102,30 @@ const Page = async () => {
                     </Badge>
                   </TableCell>
 
-                  <TableCell className="text-muted-foreground">
+                  <TableCell>
                     {new Date(post.createAt).toLocaleDateString("pt-BR")}
                   </TableCell>
 
                   <TableCell>
+                    <span className="font-medium">{post.authorName}</span>
+                  </TableCell>
+
+                  <TableCell>
+                    <span className="font-medium text-blue-500">
+                      {post.category}
+                    </span>
+                  </TableCell>
+
+                  <TableCell>
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="secondary">
-                        Editar
-                      </Button>
+                      
+                      <Link href={`/admin/post/edit/${post.slug}`}>
+                        <Button size="sm" variant="secondary" className="cursor-pointer">
+                          Editar
+                        </Button>
+                      </Link>
+
+                   
                       <DeletePostButton slug={post.slug} />
                     </div>
                   </TableCell>
@@ -117,7 +135,7 @@ const Page = async () => {
               {posts.length === 0 && (
                 <TableRow>
                   <TableCell
-                    colSpan={4}
+                    colSpan={6}
                     className="py-16 text-center text-sm text-muted-foreground"
                   >
                     Nenhum post encontrado.

@@ -1,3 +1,4 @@
+import { ContactHeader } from "@/components/layout/contactHeader";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 
@@ -10,10 +11,11 @@ export default function SiteLayout({
 }>) {
   return (
     <div >
+      <ContactHeader/>
       <header>
       <Header/>
       </header>
-      <main className="w-full max-w-6xl mx-auto p-6 ">{children}</main>
+      <main className="w-full mx-auto">{children}</main>
       <footer>
         <Footer/>
       </footer>
