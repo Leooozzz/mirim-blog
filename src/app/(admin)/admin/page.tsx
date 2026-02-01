@@ -103,7 +103,7 @@ const Page = async () => {
                   </TableCell>
 
                   <TableCell>
-                    {new Date(post.createAt).toLocaleDateString("pt-BR")}
+                    {new Date(post.createdAt).toLocaleDateString("pt-BR")}
                   </TableCell>
 
                   <TableCell>

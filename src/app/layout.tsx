@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Mulish } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Mulish({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
- 
 
 export const metadata: Metadata = {
   title: "Fundação mirim",
@@ -20,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" suppressHydrationWarning>
-      <body>
+    <html lang="pt-br" suppressHydrationWarning className="font-serif">
+      <body >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

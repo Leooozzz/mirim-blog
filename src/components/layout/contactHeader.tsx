@@ -3,9 +3,9 @@ import Image from "next/image";
 
 export const ContactHeader = () => {
   return (
-    <header>
+    <header >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-        <div className="md:flex gap-4 items-center hidden">
+        <div className="md:flex gap-4 items-center hidden ">
           <Link
             href="https://www.facebook.com"
             target="_blank"

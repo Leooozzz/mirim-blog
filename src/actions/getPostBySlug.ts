@@ -29,3 +29,19 @@ export const GetPostBySlug = async (
     return null;
   }
 };
+
+export const GetPostBySlugUser = async (
+  slug: string
+): Promise<GetPostSlug | null> => {
+  try {
+    const response = await api.get(`/posts/${slug}`)
+
+    if (response.status === 200 && response.data?.post) {
+      return response.data.post
+    }
+  } catch (err) {
+    console.error("Erro ao buscar post:", err)
+  }
+
+  return null
+}

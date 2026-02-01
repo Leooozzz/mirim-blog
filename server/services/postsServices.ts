@@ -18,7 +18,7 @@ export const HandleFileCover = async (file: Express.Multer.File) => {
   }
 };
 export const GetPostPublished = async (page: number) => {
-  const per_page = 5;
+  const PerPage = 6;
   if (page <= 0) {
     return [];
   }
@@ -41,8 +41,8 @@ export const GetPostPublished = async (page: number) => {
     orderBy: {
       createdAt: "desc",
     },
-    take: per_page,
-    skip: (page - 1) * 5,
+    take: PerPage,
+    skip: (page - 1) * PerPage,
   });
   return posts;
 };

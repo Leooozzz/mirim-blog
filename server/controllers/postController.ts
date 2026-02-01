@@ -46,6 +46,8 @@ export const GetPost: RequestHandler = async (req, res) => {
       createdAt: post.createdAt,
       cover: CoverToUrl(post.cover),
       authorName: post.author?.name,
+      status:post.status,
+      body: post.body,
       tags: post.tags,
       slug: post.slug,
     },
