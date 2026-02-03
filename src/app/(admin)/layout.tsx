@@ -6,7 +6,6 @@ import {
 
 import { Footer } from "@/components/layout/footer";
 import { ModeToggle } from "@/components/ui/modetoggle";
-import Image from "next/image";
 import Link from "next/link";
 import { requireAdmin } from "@/actions/authAdmin";
 import AppSidebar from "@/components/app-sidebar";
@@ -28,15 +27,8 @@ export default async function Layout({
             <div className="flex items-center gap-3">
               <SidebarTrigger className="text-white" />
 
-              <Image
-                src="/front/logoatt.png"
-                alt="Fundação Mirim"
-                width={40}
-                height={40}
-              />
-
               <h1 className="text-lg sm:text-2xl font-bold text-white whitespace-nowrap">
-                <Link href="/">Administrador</Link>
+                <Link href="/">Painel Administrador</Link>
               </h1>
             </div>
 

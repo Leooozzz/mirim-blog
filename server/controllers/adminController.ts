@@ -144,7 +144,7 @@ export const GetPosts = async (req: ExtendedRequest, res: Response) => {
     id: posts.id,
     status: posts.status,
     title: posts.title,
-    createAt: posts.createdAt,
+    createdAt: posts.createdAt,
     cover: CoverToUrl(posts.cover),
     authorName: posts.author?.name,
     category: posts.category?.name,

@@ -183,7 +183,7 @@ const Page = () => {
         
         
         
-          <div className="w-32 h-32 rounded-full overflow-hidden shadow-md mb-4">
+          <div className="w-22 h-22 rounded-full overflow-hidden shadow-md mb-4">
             <img
               src={person.image}
               alt={person.name}

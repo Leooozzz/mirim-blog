@@ -11,6 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Image from "next/image";
 
 const items = [
   {
@@ -50,7 +51,10 @@ export default function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-10 mt-10">
+            <Image src={"/front/logoatt.png"} alt={""} width={70} height={70}/>
+            <h1 className="text-xl">Fundação Mirim</h1>
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
