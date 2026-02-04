@@ -18,7 +18,7 @@ const Page = () => {
         <div className="max-w-7xl mx-auto px-6 py-10 flex justify-center">
           <div className="relative">
             <Image
-              src="/front/Main/fundacaoMirimimg.png"
+              src="/front/Main/FundacaoMirimSobreImg.png"
               alt="Fundação Mirim"
               width={900}
               height={300}
@@ -51,7 +51,7 @@ const Page = () => {
         <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="flex ">
             <Image
-              src={"/front/Main/fundacaoMirimimg.png"}
+              src={"/front/Main/FundacaoMirimSobreImg.png"}
               alt={""}
               width={500}
               height={500}

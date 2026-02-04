@@ -76,7 +76,7 @@ export const ListPosts = async () => {
                 </TableCell>
 
                 <TableCell className="">
-                  {new Date(post.createAt).toLocaleDateString("pt-BR")}
+                  {new Date(post.createdAt).toLocaleDateString("pt-BR")}
                 </TableCell>
 
                 <TableCell>

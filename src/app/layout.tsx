@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Inter } from "next/font/google";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Fundação mirim",
@@ -14,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" suppressHydrationWarning >
+    <html lang="pt-br" suppressHydrationWarning  className={`${inter.variable}`}>
       <body >
         <ThemeProvider
           attribute="class"

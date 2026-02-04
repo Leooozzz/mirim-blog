@@ -13,7 +13,7 @@ const Page = () => {
         <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
           <div className="flex justify-center">
             <Image
-              src="/front/main/Venhafazerparte--.png"
+              src="/front/Main/Venhafazerparte.png"
               alt="Educação colaborativa na Fundação Mirim"
               width={420}
               height={560}
