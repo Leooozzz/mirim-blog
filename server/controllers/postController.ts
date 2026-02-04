@@ -5,6 +5,7 @@ import {
   GetPostSameTags,
 } from "../services/postsServices";
 import { CoverToUrl } from "../utils/coverToUrl";
+import { GetAllCategory } from "../services/categoryService";
 
 export const GetAllPost: RequestHandler = async (req, res) => {
   let page = 1;
@@ -71,4 +72,11 @@ export const GetRelatedPost: RequestHandler = async (req, res) => {
   }))
 
   res.json({posts:posts_to_return})
+};
+export const GetCategory:RequestHandler = async (req,res) => {
+  const category = await GetAllCategory();
+  if (!category) {
+    return false;
+  }
+  return res.json({ category });
 };

@@ -1,7 +1,7 @@
 "use server"
 
 import { api } from "@/lib/api";
-import { cookies } from "next/headers";
+
 
 type Category = {
   id: number;
@@ -9,17 +9,9 @@ type Category = {
 };
 
 export const GetCategories = async (): Promise<Category[]> => {
-  const token = (await cookies()).get("auth_token")?.value;
- if (!token) {
-    throw new Error("Usuário não autenticado");
-  }
 
   try {
-    const response = await api.get("/admin/category", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await api.get("/posts/category");
     if (response.status === 200) {
       return response.data.category;
     }

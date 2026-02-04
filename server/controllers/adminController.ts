@@ -23,7 +23,6 @@ import {
 import {
   CreateCategory,
   DeleteCategory,
-  GetAllCategory,
   GetCategoryById,
   UpdateCategory,
 } from "../services/categoryService";
@@ -216,14 +215,6 @@ export const AddCategory = async (req: ExtendedRequest, res: Response) => {
     id: category.id,
     name: category.name,
   });
-};
-
-export const GetCategory = async (req: ExtendedRequest, res: Response) => {
-  const category = await GetAllCategory();
-  if (!category) {
-    return false;
-  }
-  return res.json({ category });
 };
 
 export const DeletedCategory = async (req: ExtendedRequest, res: Response) => {
