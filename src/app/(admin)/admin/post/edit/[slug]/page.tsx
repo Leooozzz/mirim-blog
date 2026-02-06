@@ -1,4 +1,4 @@
-import { EditPost } from "@/components/admin/posts/editPost"
+import { EditPostComponent  } from "@/components/admin/posts/editPost"
 
 
 type Props = {
@@ -9,7 +9,7 @@ const Page = async ({params}:Props) => {
     const {slug} = await params
     return(
         <div>
-          <EditPost/>
+          <EditPostComponent slug={slug} />
         </div>
     )
 }

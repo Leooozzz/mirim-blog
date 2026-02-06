@@ -1,3 +1,4 @@
+"use server"
 import { api } from "@/lib/api";
 import { GetPostSlug } from "@/types/post";
 
@@ -29,6 +30,10 @@ export const GetPostBySlug = async (
     return null;
   }
 };
+
+
+
+
 
 export const GetPostBySlugUser = async (
   slug: string

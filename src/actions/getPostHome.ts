@@ -1,3 +1,4 @@
+"use server"
 import { api } from "@/lib/api";
 import { GetPostType } from "@/types/post";
 

@@ -1,7 +1,268 @@
-export const EditPost = () => {
-    return(
-        <div>
-        .....
+"use client";
+
+import { EditPost } from "@/actions/editPost";
+import { GetCategories } from "@/actions/getCategory";
+import { GetPostBySlug } from "@/actions/getPostBySlug";
+import { EditPostSchema, ErrorStructure } from "@/schemas/postSchema";
+import { Category } from "@/types/category";
+import { EditPostFormData } from "@/types/post";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  slug: string;
+};
+
+const INITIAL_FORM: EditPostFormData = {
+  title: "",
+  tags: "",
+  body: "",
+  categoryId: undefined,
+  cover: null,
+};
+
+export const EditPostComponent = ({ slug }: Props) => {
+  const [form, setForm] = useState<EditPostFormData>(INITIAL_FORM);
+  const [errors, setErrors] = useState<ErrorStructure>({});
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [pending, startTransition] = useTransition();
+
+  useEffect(() => {
+    GetPostBySlug(slug).then((post) => {
+      setForm({
+        title: post?.title ?? "",
+        body: post?.body ?? "",
+        tags: post?.tags ?? "",
+        categoryId: post?.category ? Number(post.category) : undefined,
+        cover: null,
+      });
+    });
+  }, [slug]);
+
+ 
+  useEffect(() => {
+    GetCategories().then(setCategories);
+  }, []);
+
+ 
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: undefined, form: undefined }));
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setForm((prev) => ({ ...prev, categoryId: Number(value) }));
+    setErrors((prev) => ({ ...prev, categoryId: undefined }));
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setForm((prev) => ({ ...prev, cover: file }));
+  };
+
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const result = EditPostSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: ErrorStructure = {};
+      result.error.issues.forEach((err) => {
+        const field = err.path[0] as keyof ErrorStructure;
+        fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    startTransition(async () => {
+      const data = new FormData();
+
+      Object.entries(form).forEach(([key, value]) => {
+        if (value === undefined || value === null) return;
+        if (value instanceof File) data.append(key, value);
+        else data.append(key, value.toString());
+      });
+
+      const res = await EditPost({ slug, data });
+
+      if (res?.error) {
+        setErrors({ form: res.error });
+        return;
+      }
+
+      alert("Post atualizado com sucesso!");
+    });
+  };
+
+
+
+   return (
+  <div className="mx-auto max-w-xl rounded-xl border bg-background p-6 shadow-sm mt-5 mb-5">
+    <h2 className="text-2xl font-semibold tracking-tight">
+      Editar post
+    </h2>
+    <p className="mb-6 text-sm text-muted-foreground">
+      Atualize os campos abaixo para editar o conteúdo.
+    </p>
+
+    <form onSubmit={handleSubmit} className="space-y-5">
+ 
+      <div className="space-y-1.5">
+        <Label className="text-sm text-muted-foreground">Título</Label>
+        <Input
+          name="title"
+          value={form.title}
+          onChange={handleInputChange}
+          disabled={pending}
+          className={cn(
+            "transition focus-visible:ring-2",
+            errors.title &&
+              "border-destructive focus-visible:ring-destructive"
+          )}
+        />
+        {errors.title && (
+          <p className="text-xs text-destructive animate-in fade-in">
+            {errors.title}
+          </p>
+        )}
+      </div>
+
+    
+      <div className="space-y-1.5">
+        <Label className="text-sm text-muted-foreground">Tags</Label>
+        <Input
+          name="tags"
+          placeholder="noticias, banda"
+          value={form.tags}
+          onChange={handleInputChange}
+          disabled={pending}
+          className={cn(
+            errors.tags &&
+              "border-destructive focus-visible:ring-destructive"
+          )}
+        />
+        {errors.tags && (
+          <p className="text-xs text-destructive">{errors.tags}</p>
+        )}
+      </div>
+
+  
+      <div className="space-y-1.5">
+        <Label className="text-sm text-muted-foreground">Conteúdo</Label>
+        <Textarea
+          name="body"
+          rows={6}
+          value={form.body}
+          onChange={handleInputChange}
+          disabled={pending}
+          className={cn(
+            errors.body &&
+              "border-destructive focus-visible:ring-destructive"
+          )}
+        />
+        {errors.body && (
+          <p className="text-xs text-destructive">{errors.body}</p>
+        )}
+      </div>
+
+    
+      <div className="space-y-1.5">
+        <Label className="text-sm text-muted-foreground">Categoria</Label>
+        <Select
+          value={form.categoryId ? String(form.categoryId) : ""}
+          onValueChange={handleCategoryChange}
+          disabled={pending}
+        >
+          <SelectTrigger
+            className={cn(
+              errors.categoryId &&
+                "border-destructive focus:ring-destructive"
+            )}
+          >
+            <SelectValue placeholder="Selecione uma categoria" />
+          </SelectTrigger>
+          <SelectContent>
+            {categories.map((cat) => (
+              <SelectItem key={cat.id} value={String(cat.id)}>
+                {cat.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors.categoryId && (
+          <p className="text-xs text-destructive">
+            {errors.categoryId}
+          </p>
+        )}
+      </div>
+
+     
+      <div className="space-y-2">
+        <Label className="text-sm text-muted-foreground">
+          Imagem de capa
+        </Label>
+
+        <label
+          htmlFor="cover"
+          className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed p-6 text-sm text-muted-foreground transition hover:bg-muted"
+        >
+          <span>Clique para enviar ou arraste a imagem</span>
+          <span className="text-xs">(PNG, JPG, até 5MB)</span>
+        </label>
+
+        <Input
+          id="cover"
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFileChange}
+        />
+      </div>
+
+  
+      {errors.form && (
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+          {errors.form}
         </div>
-    )
-}
+      )}
+
+      
+      <Button
+        type="submit"
+        disabled={pending}
+        className="w-full gap-2 text-base"
+      >
+        {pending && (
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
+        )}
+        {pending ? "Salvando..." : "Salvar alterações"}
+      </Button>
+    </form>
+  </div>
+);
+
+
+};

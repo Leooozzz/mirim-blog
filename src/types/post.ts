@@ -16,12 +16,13 @@ export type GetPostSlug = {
   status: string;
   slug: string;
   cover:string,
+  tags:string,
   body:string,
   authorName:string
   createdAt: string;
   category:string
-
 };
+
 export type CreatePostFormData = {
   title: string;
   tags: string;
@@ -29,5 +30,17 @@ export type CreatePostFormData = {
   categoryId: number;
   cover: File | null;
 };
-
-
+  
+export type EditPostType = {
+  tile:string,
+  tags:string,
+  body:string,
+  cover:File|null
+}
+export type EditPostFormData = {
+  title?: string;
+  tags?: string;
+  body?: string;
+  categoryId?: number;
+  cover?: File | null;
+};

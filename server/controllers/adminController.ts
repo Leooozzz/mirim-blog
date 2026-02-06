@@ -98,7 +98,7 @@ export const EditPost = async (req: ExtendedRequest, res: Response) => {
     cover_name = await HandleFileCover(req.file);
   }
   
-  const updated_post = await UpdatePost(slug as string, {
+  const posts = await UpdatePost(slug as string, {
     updateAt: new Date(),
     status: data.data.status ?? undefined,
     title: data.data.title ?? undefined,
@@ -107,18 +107,18 @@ export const EditPost = async (req: ExtendedRequest, res: Response) => {
     cover: cover_name ? cover_name : undefined,
   });
 
-  const author = await GetUserById(updated_post.authorId);
+  const author = await GetUserById(posts.authorId);
 
   res.json({
     post: {
-      id: updated_post.id,
-      status: updated_post.status,
-      title: updated_post.title,
-      body: updated_post.body,
-      slug: updated_post.slug,
-      createdAt: updated_post.createdAt,
-      cover: CoverToUrl(updated_post.cover),
-      tags: updated_post.tags,
+      id: posts.id,
+      status: posts.status,
+      title: posts.title,
+      body: posts.body,
+      slug: posts.slug,
+      createdAt: posts.createdAt,
+      cover: CoverToUrl(posts.cover),
+      tags: posts.tags,
       authorName: author?.name,
     }
   });
