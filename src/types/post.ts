@@ -44,3 +44,16 @@ export type EditPostFormData = {
   categoryId?: number;
   cover?: File | null;
 };
+
+
+export type RelatedPostBySlug = {
+  id:number,
+  status:string,
+  title:string,
+  body:string,
+  createdAt:string,
+  cover:string,
+  authorName:string,
+  tags:string,
+  slug:string
+}

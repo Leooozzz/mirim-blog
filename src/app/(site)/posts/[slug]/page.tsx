@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {  RelatedPostsBySlug } from "@/components/blog/getPostSlugRelated";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,9 +22,9 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-muted/40 py-10">
+    <div className="min-h-screen py-10 bg-gray-200 dark:bg-gray-950">
       <div className="mx-auto max-w-5xl px-4">
-        <Card>
+        <Card className="dark:bg-gray-950">
           <CardHeader className="space-y-4">
             <div className="flex items-center justify-between">
               <Badge
@@ -75,7 +76,7 @@ export default async function Page({ params }: Props) {
                 <img
                   src={post.cover}
                   alt={post.title}
-                  className="h-105 w-full object-cover"
+                  className="h-105 w-full object-center"
                 />
               </div>
             </div>
@@ -90,6 +91,10 @@ export default async function Page({ params }: Props) {
             </article>
           </CardContent>
         </Card>
+        <div className="mt-10">
+          <h1 className="text-3xl mb-5 font-bold">Posts relacionados </h1>
+          <RelatedPostsBySlug slug={slug} />
+        </div>
       </div>
     </div>
   );

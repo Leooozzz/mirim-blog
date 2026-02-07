@@ -5,34 +5,39 @@ import {
   GetPostSameTags,
 } from "../services/postsServices";
 import { CoverToUrl } from "../utils/coverToUrl";
-import { GetAllCategory } from "../services/categoryService";
 
 export const GetAllPost: RequestHandler = async (req, res) => {
-  let page = 1;
-  if (req.query.page) {
-    page = parseInt(req.query.page as string);
-    if (page <= 0) {
-      return res.json({ error: "Page not found" });
+  try {
+    let page = 1;
+    if (req.query.page) {
+      page = parseInt(req.query.page as string);
+      if (page <= 0) {
+        return res.json({ error: "Page not found" });
+      }
     }
-  }
-  let post = await GetPostPublished(page);
+    let post = await GetPostPublished(page);
 
-  const PostToReturn = post.map((posts) => ({
-    id: posts.id,
-    status: posts.status,
-    title: posts.title,
-    createdAt: posts.createdAt,
-    cover: CoverToUrl(posts.cover),
-    authorName: posts.author?.name,
-    body:posts.body,
-    category: posts.category?.name,
-    tags: posts.tags,
-    slug: posts.slug,
-  }));
-  res.json({ post: PostToReturn, page });
+    const PostToReturn = post.map((posts) => ({
+      id: posts.id,
+      status: posts.status,
+      title: posts.title,
+      createdAt: posts.createdAt,
+      cover: CoverToUrl(posts.cover),
+      authorName: posts.author?.name,
+      body: posts.body,
+      category: posts.category?.name,
+      tags: posts.tags,
+      slug: posts.slug,
+    }));
+    res.json({ post: PostToReturn, page });
+  } catch (error) {
+    console.log("Get All Post",error);
+    return res.status(500).json("Internal server error")
+  }
 };
 
 export const GetPost: RequestHandler = async (req, res) => {
+  try{
   const { slug } = req.params;
   const post = await GetPostBySlug(slug as string);
 
@@ -47,36 +52,39 @@ export const GetPost: RequestHandler = async (req, res) => {
       createdAt: post.createdAt,
       cover: CoverToUrl(post.cover),
       authorName: post.author?.name,
-      status:post.status,
+      status: post.status,
       body: post.body,
       tags: post.tags,
       slug: post.slug,
     },
   });
+}catch(error){
+  console.log("Get Posts",error);
+  return res.status(500).json("Internal server error")
+}
 };
 
 export const GetRelatedPost: RequestHandler = async (req, res) => {
+  try{
   const { slug } = req.params;
 
-  let posts = await GetPostSameTags(slug as string)
+  let posts = await GetPostSameTags(slug as string);
 
-  const posts_to_return  = posts.map(post => ({
-     id: post.id,
+  const posts_to_return = posts.map((post) => ({
+    id: post.id,
     status: post.status,
     title: post.title,
+    body: post.body,
     createdAt: post.createdAt,
     cover: CoverToUrl(post.cover),
     authorName: post.author?.name,
     tags: post.tags,
     slug: post.slug,
-  }))
+  }));
 
-  res.json({posts:posts_to_return})
-};
-export const GetCategory:RequestHandler = async (req,res) => {
-  const category = await GetAllCategory();
-  if (!category) {
-    return false;
+  res.json({ posts: posts_to_return });
+  }catch(error){
+    console.log("Get Related Post",error);
+    return res.status(500).json("Internal server error")
   }
-  return res.json({ category });
 };

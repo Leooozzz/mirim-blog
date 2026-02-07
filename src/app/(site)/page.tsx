@@ -1,4 +1,5 @@
-import { PostHomePage } from "@/components/posts/postHomePage";
+
+import { GetPostsComponents } from "@/components/posts/postHomePage";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, GraduationCap, Users } from "lucide-react";
@@ -180,7 +181,7 @@ const Page = () => {
           </p>
 
           <div className="mt-8">
-            <PostHomePage />
+            <GetPostsComponents />
           </div>
         </div>
       </section>

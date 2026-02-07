@@ -3,7 +3,7 @@ import { api } from "@/lib/api";
 import { GetPostType } from "@/types/post";
 
 
-export const GetPostHome = async (): Promise<GetPostType[]> => {
+export const GetPosts = async (): Promise<GetPostType[]> => {
   try {
     const response = await api.get("posts")
 

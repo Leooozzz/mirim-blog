@@ -13,7 +13,7 @@ export const MenuBar = async () => {
     
       <div className="flex flex-wrap gap-3 justify-center">
         {allCategories.map((cat) => (
-          <Link key={cat.id} href={cat.id === "all" ? "/Blog" : `/category/${cat.name}`}>
+          <Link key={cat.id} href={cat.id === "all" ? "/Blog" : `/Blog/${cat.name}`}>
             <Button variant="outline" className="whitespace-nowrap">
               {cat.name}
             </Button>

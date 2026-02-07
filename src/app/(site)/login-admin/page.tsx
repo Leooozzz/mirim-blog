@@ -2,9 +2,9 @@ import { LoginForm } from "@/components/auth/loginForm";
 
 export const Page = () => {
   return (
-    <div className="max-w-md mx-auto">
+    <main className="max-w-md mx-auto">
       <LoginForm />
-    </div>
+    </main>
   );
 };
 

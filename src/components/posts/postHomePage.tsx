@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GetPostHome } from "@/actions/getPostHome";
+import { GetPosts } from "@/actions/getPostHome";
 import {
   Card,
   CardContent,
@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export const PostHomePage = async () => {
-  const posts = await GetPostHome();
+export const GetPostsComponents = async () => {
+  const posts = await GetPosts();
 
   const truncateText = (text: string, limit = 50) => {
     if (!text) return "";
@@ -22,7 +22,7 @@ export const PostHomePage = async () => {
         <Card
           key={post.id}
           className="relative overflow-hidden bg-white border border-gray-200 
-                     dark:bg-gray-900 dark:border-gray-800
+                     dark:bg-gray-950 dark:border-gray-800
                      hover:shadow-lg transition-shadow"
         >
         
@@ -30,7 +30,7 @@ export const PostHomePage = async () => {
             <img
               src={post.cover}
               alt={post.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-fill"
             />
           </div>
 
