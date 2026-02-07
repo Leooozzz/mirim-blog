@@ -6,3 +6,6 @@ export type CategoryData = {
     name:string
 }
 
+export type EditCategoryFormData = {
+ name:string
+};

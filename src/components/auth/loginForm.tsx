@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { login_schema } from "@/schemas/loginSchema";
 import { login } from "@/actions/login";
-import { setAuthCookies } from "@/actions/set.auth.cookie";
+import { setAuthCookies } from "@/actions/setAuthCookie";
 import { useAuthStore } from "@/app/store/auth";
 import { redirect } from "next/navigation";
 

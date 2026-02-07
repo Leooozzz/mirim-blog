@@ -35,7 +35,7 @@ export const Page = () => {
 
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <form>
-            <Card className="dark:bg-blue-950">
+            <Card className="bg-gray-50 dark:bg-gray-950">
               <CardHeader className="flex items-center">
                 <MessageSquareTextIcon className="text-blue-500"/>
                 <CardTitle className="text-3xl">Envie sua mensagem</CardTitle>
@@ -121,7 +121,7 @@ export const Page = () => {
           </form>
 
           <div className="flex flex-col gap-8">
-            <Card className="dark:bg-blue-950">
+            <Card className="bg-gray-50 dark:bg-gray-950">
               <div className="flex items-start gap-4 p-6">
                 <Phone className="h-6 w-6 mt-1 text-blue-500" />
                 <div>
@@ -142,7 +142,7 @@ export const Page = () => {
               </div>
             </Card>
 
-            <Card className="dark:bg-blue-950">
+            <Card className="bg-gray-50 dark:bg-gray-950">
               <div className="flex items-start gap-4 p-6">
                 <MapPin className="h-6 w-6  mt-1 text-blue-500" />
                 <div>

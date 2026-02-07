@@ -28,14 +28,14 @@ const Page = async () => {
   const posts = await GetPost(3);
 
   return (
-    <main className="p-8 min-h-screen bg-background text-foreground">
+    <main className="p-8 min-h-screen bg-background text-foreground ">
       <header className="mb-8">
         <h1 className="text-3xl font-bold">Painel do Blog</h1>
         <p className="text-muted-foreground">Resumo das atividades do blog</p>
       </header>
 
     
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 ">
         <div className="bg-card text-card-foreground p-6 rounded-lg border shadow-sm">
           <h2 className="text-sm text-muted-foreground">Posts publicados</h2>
           <p className="text-2xl font-bold">{totalPosts ?? 0}</p>
@@ -52,10 +52,10 @@ const Page = async () => {
         </div>
       </section>
 
-      <section className="mb-8">
+      <section className="mb-8 ">
         <h2 className="text-xl font-semibold mb-4">Posts recentes</h2>
         <div className="rounded-xl border bg-card shadow-sm">
-          <Table>
+          <Table className="">
             <TableHeader>
               <TableRow>
                 <TableHead>Título</TableHead>

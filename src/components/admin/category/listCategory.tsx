@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DeleteCategoryButton } from "./deleteCategory";
+import Link from "next/link";
 
 export const ListCategory = async () => {
   const categories = await GetCategories();
@@ -40,11 +41,7 @@ export const ListCategory = async () => {
               </TableCell>
 
               <TableCell>
-                <div className="flex justify-end gap-2">
-                  <Button variant="outline" size="sm">
-                    Editar
-                  </Button>
-
+                <div className="flex justify-end ">
                   <DeleteCategoryButton id={cat.id} />
                 </div>
               </TableCell>
