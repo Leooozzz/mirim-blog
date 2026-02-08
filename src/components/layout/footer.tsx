@@ -12,7 +12,7 @@ export const Footer = () => {
           <div className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">Fundação Mirim</h2>
             <p className="text-sm text-white/80">
-              Transformando o futuro por meio da educação e cidadania.
+              Seguimos transformando vidas, por meio da educação, do trabalho e da solidariedade.
             </p>
           </div>
 
@@ -30,8 +30,8 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/Noticias" className="hover:text-white transition">
-                  Notícias
+                <Link href="/Blog" className="hover:text-white transition">
+                  Blog
                 </Link>
               </li>
               <li>
@@ -45,13 +45,13 @@ export const Footer = () => {
      
           <div>
             <h3 className="font-semibold mb-3">Contato</h3>
-            <p className="text-sm text-white/80">email@exemplo.com</p>
-            <p className="text-sm text-white/80">+55 (11) 99999-9999</p>
+            <p className="text-sm text-white/80">fundacaomirimata@terra.com</p>
+            <p className="text-sm text-white/80">+55 (18) 99203-3059</p>
 
          
             <div className="flex gap-4 mt-4">
               <Link
-                href="https://facebook.com"
+                href="https://www.facebook.com/fundacaomirimdearacatubaoficial"
                 target="_blank"
                 aria-label="Facebook"
               >
@@ -64,7 +64,7 @@ export const Footer = () => {
               </Link>
 
               <Link
-                href="https://instagram.com"
+                href="https://www.instagram.com/fundacaomirimaracatuba/"
                 target="_blank"
                 aria-label="Instagram"
               >
@@ -77,7 +77,7 @@ export const Footer = () => {
               </Link>
 
               <Link
-                href="https://wa.me/5511999999999"
+                href="https://wa.me/5518992033059"
                 target="_blank"
                 aria-label="WhatsApp"
               >
@@ -102,7 +102,7 @@ export const Footer = () => {
           </p>
 
           <Link
-            href="https://www.google.com/maps/place/Funda%C3%A7%C3%A3o+Mirim+de+Ara%C3%A7atuba"
+            href="https://www.google.com/maps/place/Funda%C3%A7%C3%A3o+Mirim+de+Ara%C3%A7atuba/@-21.2078637,-50.4514807,17z/data=!3m1!4b1!4m6!3m5!1s0x9496438d48022205:0xef04667461496182!8m2!3d-21.2078637!4d-50.4514807!16s%2Fg%2F1tp30gp0?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-white/80 hover:text-white transition text-center md:text-left"

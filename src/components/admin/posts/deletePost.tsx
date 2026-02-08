@@ -3,6 +3,17 @@
 import { deletePost } from "@/actions/deletePost";
 import { Button } from "../../ui/button";
 import { useTransition } from "react";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 type Props = {
   slug: string;
@@ -12,20 +23,42 @@ export function DeletePostButton({ slug }: Props) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
-    startTransition(async () => {
-      await deletePost({ slug });
+    startTransition(() => {
+      deletePost({ slug }).catch(console.error);
     });
   }
 
   return (
-    <Button
-      size="sm"
-      variant="destructive"
-      onClick={handleDelete}
-      disabled={isPending}
-      className="cursor-pointer"
-    >
-      {isPending ? "Excluindo..." : "Excluir"}
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button size="sm" variant="destructive">
+          Excluir
+        </Button>
+      </AlertDialogTrigger>
+
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Excluir post</AlertDialogTitle>
+          <AlertDialogDescription>
+            Essa ação não pode ser desfeita. O post será removido
+            permanentemente.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isPending}>
+            Cancelar
+          </AlertDialogCancel>
+
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
+            {isPending ? "Excluindo..." : "Confirmar"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

@@ -28,7 +28,7 @@ export default async function Layout({
               <SidebarTrigger className="text-white" />
 
               <h1 className="text-lg sm:text-2xl font-bold text-white whitespace-nowrap">
-                <Link href="/">Painel Administrador</Link>
+                <Link href="/admin">Painel Administrador</Link>
               </h1>
             </div>
 

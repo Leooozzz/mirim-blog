@@ -24,6 +24,17 @@ import { ErrorStructure, PostSchema } from "@/schemas/postSchema";
 import { Category } from "@/types/category";
 import { CreatePostFormData } from "@/types/post";
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 const INITIAL_FORM: CreatePostFormData = {
   title: "",
@@ -38,6 +49,7 @@ export const CreatePostForm = () => {
   const [errors, setErrors] = useState<ErrorStructure>({});
   const [categories, setCategories] = useState<Category[]>([]);
   const [pending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);  
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -58,8 +70,8 @@ export const CreatePostForm = () => {
     setForm((prev) => ({ ...prev, cover: file }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+
 
     const result = PostSchema.safeParse(form);
     if (!result.success) {
@@ -91,7 +103,7 @@ export const CreatePostForm = () => {
 
       setForm(INITIAL_FORM);
     });
-    alert("Post criado com sucesso!");
+  
   };
 
   useEffect(() => {
@@ -107,7 +119,7 @@ export const CreatePostForm = () => {
       Preencha os campos abaixo para publicar um novo conteúdo.
     </p>
 
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form className="space-y-5">
   
       <div className="space-y-1.5">
         <Label className="text-sm text-muted-foreground">Título</Label>
@@ -227,17 +239,42 @@ export const CreatePostForm = () => {
           {errors.form}
         </div>
       )}
+ <AlertDialog >
+      <AlertDialogTrigger asChild>
+        <Button
+          type="button"
+          className="w-full gap-2 text-base"
+          disabled={pending}
+        >
+          Publicar post
+        </Button>
+      </AlertDialogTrigger>
 
-      <Button
-        type="submit"
-        disabled={pending}
-        className="w-full gap-2 text-base"
-      >
-        {pending && (
-          <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-        )}
-        {pending ? "Publicando..." : "Publicar post"}
-      </Button>
+      <AlertDialogContent >
+        <AlertDialogHeader>
+          <AlertDialogTitle>Publicar post?</AlertDialogTitle>
+          <AlertDialogDescription>
+            O post será publicado e ficará visível para os leitores.
+            Você pode editá-lo depois.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={pending}>
+            Cancelar
+          </AlertDialogCancel>
+
+          <AlertDialogAction
+            type="submit"
+            disabled={pending}
+            onClick={()=>{setOpen(false);handleSubmit()}}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            {pending ? "Publicando..." : "Confirmar publicação"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
     </form>
   </div>
 );

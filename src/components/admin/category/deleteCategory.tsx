@@ -1,31 +1,64 @@
 "use client";
 
-
 import { deleteCategory } from "@/actions/deleteCategory";
 import { Button } from "../../ui/button";
 import { useTransition } from "react";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 type Props = {
-  id: Number;
+  id: number;
 };
 
 export function DeleteCategoryButton({ id }: Props) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
-    startTransition(async () => {
-      await deleteCategory({ id });
+    startTransition(() => {
+      deleteCategory({ id }).catch(console.error);
     });
   }
 
   return (
-    <Button
-      size="sm"
-      variant="destructive"
-      onClick={handleDelete}
-      disabled={isPending}
-    >
-      {isPending ? "Excluindo..." : "Excluir"}
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button size="sm" variant="destructive">
+          Excluir
+        </Button>
+      </AlertDialogTrigger>
+
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Excluir categoria</AlertDialogTitle>
+          <AlertDialogDescription>
+            Essa ação não pode ser desfeita. A categoria será removida
+            permanentemente.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isPending}>
+            Cancelar
+          </AlertDialogCancel>
+
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
+            {isPending ? "Excluindo..." : "Confirmar"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

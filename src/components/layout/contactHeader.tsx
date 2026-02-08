@@ -7,7 +7,7 @@ export const ContactHeader = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
         <div className="md:flex gap-4 items-center hidden ">
           <Link
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/fundacaomirimdearacatubaoficial"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -28,7 +28,7 @@ export const ContactHeader = () => {
           </Link>
 
           <Link
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/fundacaomirimaracatuba/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -49,7 +49,7 @@ export const ContactHeader = () => {
           </Link>
 
           <Link
-            href="https://www.whatsapp.com"
+            href="https://wa.me/5518992033059"
             target="_blank"
             rel="noopener noreferrer"
           >

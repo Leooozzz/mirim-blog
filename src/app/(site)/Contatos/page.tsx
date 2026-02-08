@@ -130,7 +130,7 @@ export const Page = () => {
                       Telefone & WhatsApp
                     </CardTitle>
                     <CardDescription className="text-xl font-semibold text-foreground">
-                      +55 (18) 99125-3585
+                      +55 (18) 99203-3059
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="p-0">
