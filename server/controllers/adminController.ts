@@ -149,7 +149,7 @@ export const GetPosts = async (req: ExtendedRequest, res: Response) => {
   try {
     let posts = await GetAllPostService();
 
-    const post_to_return = posts.map((posts) => ({
+    const PostsToReturn = posts.map((posts) => ({
       id: posts.id,
       status: posts.status,
       title: posts.title,
@@ -160,7 +160,7 @@ export const GetPosts = async (req: ExtendedRequest, res: Response) => {
       tags: posts.tags,
       slug: posts.slug,
     }));
-    res.json({ posts: post_to_return });
+    res.json({ posts: PostsToReturn });
   } catch (error) {
     console.log("Get Posts", error);
     return res.status(500).json("Internal server error");

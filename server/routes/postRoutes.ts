@@ -4,6 +4,7 @@ import * as CategoryController from '../controllers/categoryController'
 export const PostRoutes = Router()
 
 PostRoutes.get('/category', CategoryController.GetCategory)
+PostRoutes.get('/category/:id',postController.GetPostByCategory)
 PostRoutes.get('/:slug/related', postController.GetRelatedPost)
 PostRoutes.get('/:slug', postController.GetPost)
 PostRoutes.get('/', postController.GetAllPost)

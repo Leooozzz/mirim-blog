@@ -35,7 +35,7 @@ export default async function Page({ params }: Props) {
              
            
            <div>
-            <Link href="/">
+            <Link href="/Blog">
                 <Button variant="ghost" size="sm">
                   ← Voltar
                 </Button>
@@ -92,7 +92,6 @@ export default async function Page({ params }: Props) {
           </CardContent>
         </Card>
         <div className="mt-10">
-          <h1 className="text-3xl mb-5 font-bold">Posts relacionados </h1>
           <RelatedPostsBySlug slug={slug} />
         </div>
       </div>

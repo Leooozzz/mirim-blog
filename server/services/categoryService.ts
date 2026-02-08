@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma";
 
+
 export const CreateCategory = async (name: string) => {
   return prisma.category.create({
     data: { name },

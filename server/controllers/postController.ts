@@ -3,8 +3,10 @@ import {
   GetPostBySlug,
   GetPostPublished,
   GetPostSameTags,
+  PostByCategory,
 } from "../services/postsServices";
 import { CoverToUrl } from "../utils/coverToUrl";
+
 
 export const GetAllPost: RequestHandler = async (req, res) => {
   try {
@@ -70,7 +72,7 @@ export const GetRelatedPost: RequestHandler = async (req, res) => {
 
   let posts = await GetPostSameTags(slug as string);
 
-  const posts_to_return = posts.map((post) => ({
+  const PostToReturn = posts.map((post) => ({
     id: post.id,
     status: post.status,
     title: post.title,
@@ -82,9 +84,32 @@ export const GetRelatedPost: RequestHandler = async (req, res) => {
     slug: post.slug,
   }));
 
-  res.json({ posts: posts_to_return });
+  res.json({ posts: PostToReturn });
   }catch(error){
     console.log("Get Related Post",error);
     return res.status(500).json("Internal server error")
+  }
+};
+
+export const GetPostByCategory: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const categoryId = Number(id);
+
+    if (Number.isNaN(categoryId)) {
+      return res.status(400).json({ message: "Invalid category id" });
+    }
+
+    const posts = await PostByCategory(categoryId);
+
+    const postsWithCoverUrl = posts.map((post) => ({
+      ...post,
+      cover: CoverToUrl(post.cover), 
+    }));
+
+    return res.json({ posts: postsWithCoverUrl });
+  } catch (error) {
+    console.log("Get post by category", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

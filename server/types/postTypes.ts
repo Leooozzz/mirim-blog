@@ -1,4 +1,4 @@
-export type create_type_post = {
+export type CreateTypePost = {
   authorId: number;
   slug: string;
   title: string;

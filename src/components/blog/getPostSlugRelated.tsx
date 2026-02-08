@@ -17,6 +17,8 @@ export const RelatedPostsBySlug = async ({ slug }: Props) => {
 
 
   return (
+    <div>
+    <h1 className="text-3xl mb-5 mt-5">Posts relacionados</h1>
     <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
       {posts.map((post) => (
         <Card
@@ -72,6 +74,7 @@ export const RelatedPostsBySlug = async ({ slug }: Props) => {
           </CardContent>
         </Card>
       ))}
+    </div>
     </div>
   );
 };

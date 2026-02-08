@@ -2,7 +2,7 @@ import { v4 } from "uuid";
 import fs from "fs/promises";
 import slug from "slug";
 import { prisma } from "../lib/prisma";
-import { create_type_post } from "../types/postTypes";
+import { CreateTypePost } from "../types/postTypes";
 import { Prisma } from "../../prisma/prisma/client";
 
 export const HandleFileCover = async (file: Express.Multer.File) => {
@@ -111,7 +111,7 @@ export const CreatePostSlug = async (title: string) => {
   return new_slug;
 };
 
-export const CreatePost = async (data: create_type_post) => {
+export const CreatePost = async (data: CreateTypePost) => {
   return await prisma.post.create({
     data,
     include: {
@@ -200,4 +200,32 @@ export const GetNumberPostViews = async () => {
     },
   });
   return total._sum ?? 0;
+};
+
+export const PostByCategory = async (categoryId: number) => {
+  return prisma.post.findMany({
+    where: {
+      status: "PUBLISHED",
+      categoryId,
+    },
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      slug: true,
+      cover: true,
+      body: true,
+      createdAt: true,
+      author: {
+        select: {
+          name: true,
+        },
+      },
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    }
+  });
 };

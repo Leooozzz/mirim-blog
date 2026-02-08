@@ -4,7 +4,7 @@ import {
   GetPostCountDraft,
   GetPostCountPublished,
   GetViewsCount,
-} from "@/actions/getQuantityPosts";
+} from "@/actions/getQuantity";
 import {
   Table,
   TableBody,

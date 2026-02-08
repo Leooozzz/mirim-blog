@@ -1,4 +1,3 @@
-
 import { GetPostsComponents } from "@/components/posts/postHomePage";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import Link from "next/link";
 const Page = () => {
   return (
     <main className="bg-gray-50 dark:bg-gray-950">
-
       <section className="bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
           <div className="flex justify-center">
@@ -45,11 +43,7 @@ const Page = () => {
                 <Link href="/Blog">Nosso blog</Link>
               </Button>
 
-              <Button
-                asChild
-                variant="outline"
-                className="px-6 py-6 text-base"
-              >
+              <Button asChild variant="outline" className="px-6 py-6 text-base">
                 <Link href="/Contatos">Entre em contato</Link>
               </Button>
             </div>
@@ -57,7 +51,6 @@ const Page = () => {
         </div>
       </section>
 
-     
       <section className="bg-gray-50 dark:bg-gray-950 py-20">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
           <span className="text-sm font-semibold tracking-widest text-blue-600 dark:text-blue-500 uppercase">
@@ -71,25 +64,22 @@ const Page = () => {
           <div className="w-14 h-1 bg-blue-600 dark:bg-blue-500 rounded-full mt-4 mb-12" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-            {[ 
+            {[
               {
                 icon: <GraduationCap size={24} />,
                 title: "Nossa Metodologia",
-                text:
-                  "Metodologia inovadora baseada em projetos reais (PBL), preparando os alunos para o mercado de trabalho."
+                text: "Metodologia inovadora baseada em projetos reais (PBL), preparando os alunos para o mercado de trabalho.",
               },
               {
                 icon: <Building2 size={24} />,
                 title: "Infraestrutura",
-                text:
-                  "Laboratórios, atendimento odontológico e ambientes planejados para estimular criatividade e aprendizado."
+                text: "Laboratórios, atendimento odontológico e ambientes planejados para estimular criatividade e aprendizado.",
               },
               {
                 icon: <Users size={24} />,
                 title: "Corpo Docente",
-                text:
-                  "Professores experientes, com forte atuação acadêmica e no mercado atual."
-              }
+                text: "Professores experientes, com forte atuação acadêmica e no mercado atual.",
+              },
             ].map((item, i) => (
               <Card
                 key={i}
@@ -136,7 +126,6 @@ const Page = () => {
         </div>
       </section>
 
-
       <section className="bg-white dark:bg-gray-900 py-20">
         <div className="max-w-7xl mx-auto px-6 flex justify-center">
           <Card className="w-full max-w-3xl rounded-2xl shadow-lg bg-gray-50 dark:bg-gray-950">
@@ -154,15 +143,12 @@ const Page = () => {
               </p>
 
               <Link href="/Contatos">
-                <Button className="px-8 py-6 text-base">
-                  Fale Conosco
-                </Button>
+                <Button className="px-8 py-6 text-base">Fale Conosco</Button>
               </Link>
             </CardContent>
           </Card>
         </div>
       </section>
-
 
       <section className="bg-gray-50 dark:bg-gray-950 py-20">
         <div className="max-w-7xl mx-auto px-4">

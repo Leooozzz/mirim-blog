@@ -83,7 +83,7 @@ export const ContactHeader = () => {
               alt="Localização"
               width={15}
               height={15}
-              className="dark:inline"
+              className="dark:hidden"
             />
             <Image
               src="/front/local.png"
