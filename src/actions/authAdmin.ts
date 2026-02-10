@@ -22,7 +22,7 @@ export async function requireAdmin() {
       },
     );
 
-    return res.data;
+    return res.data.user;
   } catch (error) {
     redirect("/login-admin");
   }

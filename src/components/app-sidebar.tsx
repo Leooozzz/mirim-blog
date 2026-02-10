@@ -1,4 +1,4 @@
-import { FilePlus, FolderPlus, Home, LayoutList, List, UserCog, Users } from "lucide-react";
+import { FilePlus, FolderPlus, Home, HomeIcon, LayoutList, List, MenuIcon, UserCog, Users } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -12,12 +12,16 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
+import { Separator } from "./ui/separator";
+import { IconProfile } from "./iconProfile";
+
+
 
 const items = [
   {
-    title: "Home",
+    title: "Menu principal",
     url: "/admin",
-    icon: Home,
+    icon: MenuIcon,
   },
   {
     title: "Criar post",
@@ -44,6 +48,11 @@ const items = [
     url: "/admin/administradores",
     icon: Users,
   },
+  {
+    title: "Voltar ao site",
+    url: "/",
+    icon: HomeIcon
+  }
 ];
 
 export default function AppSidebar() {
@@ -71,6 +80,10 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <Separator/>
+      <div className="p-3">
+           <IconProfile />   
+      </div>
     </Sidebar>
   );
 }
