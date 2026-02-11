@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { ExtendedRequest } from "../types/extendsRequest";
-import { PostSchema, UpdatePostSchema } from "../schemas/postSchema";
+import { PostSchema, UpdatePostSchema } from "../post/post.schema";
 import {
   CreatePost,
   CreatePostSlug,
@@ -13,10 +13,10 @@ import {
   HandleFileCover,
   incrementProductView,
   UpdatePost,
-} from "../services/postsServices";
-import { GetUserById } from "../services/userService";
+} from "../post/post.services";
+import { GetUserById } from "../services/user.service";
 import { CoverToUrl } from "../utils/coverToUrl";
-import { GetCategoryById } from "../services/categoryService";
+import { GetCategoryById } from "../category/category.service";
 
 //CRIAR POST E SLUG
 

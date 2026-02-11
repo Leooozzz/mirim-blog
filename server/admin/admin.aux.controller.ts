@@ -1,7 +1,7 @@
-import { GetNumberPost, GetNumberPostDraft, GetNumberPostViews } from "../services/postsServices";
-import { GetAllAdmins } from "../services/userService";
+import { GetNumberPost, GetNumberPostDraft, GetNumberPostViews } from "../post/post.services";
 import { ExtendedRequest } from "../types/extendsRequest";
 import { Response } from "express";
+import { GetAllAdmins } from "./admin.aux.service";
 
 export const CountPosts = async (req: ExtendedRequest, res: Response) => {
   try {

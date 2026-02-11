@@ -2,12 +2,13 @@ import express, { NextFunction, Request, Response, urlencoded } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { configDotenv } from "dotenv";
-import { router } from "./routes/routes";
-import {  PostRoutes } from "./routes/postRoutes";
-import { AuthRoutes } from "./routes/authRoutes";
-import CategoryRoutes from "./routes/adminCategoryRoutes";
-import AdminPostRoutes from "./routes/adminPostRoutes";
-import AuxRoutes from "./routes/adminAuxRoutes";
+
+import { AuthRoutes } from "./auth/auth.routes";
+import CategoryRoutes from "./category/category.routes";
+import AuxRoutes from "./admin/routes/admin.aux.routes";
+import PostRoutes from "./post/post.routes";
+import AdminPostRoutes from "./admin/routes/adminPostRoutes";
+
 
 configDotenv();
 
@@ -22,8 +23,6 @@ server.use(
 );
 server.use(express.static("public"));
 server.use(express.json());
-
-server.use(router);
 
 
 server.use('/posts',PostRoutes)

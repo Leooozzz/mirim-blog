@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { PrivateRoute } from "../middlewares/privateRoute";
-import { upload } from "../lib/multer";
-import * as AdminController from "../controllers/adminController";
-import * as AdminAuxController from "../controllers/adminAuxController";
+
+import * as AdminController from "../admin.controller";
+import * as AdminAuxController from "../admin.aux.controller";
+import { PrivateRoute } from "../../middlewares/privateRoute";
+import { upload } from "../../lib/multer";
 
 const AdminPostRoutes = Router()
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as AuthController from "../controllers/authController";
+import * as AuthController from "./auth.controller";
 import { PrivateRoute } from "../middlewares/privateRoute";
 export const AuthRoutes = Router()
 

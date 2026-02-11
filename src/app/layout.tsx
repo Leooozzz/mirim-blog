@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning  className={`${inter.variable}`}>
-      <body >
+      <body className={`${inter.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

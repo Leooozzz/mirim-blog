@@ -4,7 +4,7 @@ import {
   GetPostPublished,
   GetPostSameTags,
   PostByCategory,
-} from "../services/postsServices";
+} from "./post.services";
 import { CoverToUrl } from "../utils/coverToUrl";
 
 

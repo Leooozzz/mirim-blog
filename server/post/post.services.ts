@@ -2,7 +2,7 @@ import { v4 } from "uuid";
 import fs from "fs/promises";
 import slug from "slug";
 import { prisma } from "../lib/prisma";
-import { CreateTypePost } from "../types/postTypes";
+import { CreateTypePost } from "./post.types";
 import { Prisma } from "../../prisma/prisma/client";
 
 export const HandleFileCover = async (file: Express.Multer.File) => {

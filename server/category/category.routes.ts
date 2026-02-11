@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { PrivateRoute } from "../middlewares/privateRoute";
-import * as CategoryController from "../controllers/categoryController";
+import * as CategoryController from "./category.controller";
 
 export const CategoryRoutes = Router()
 

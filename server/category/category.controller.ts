@@ -1,14 +1,14 @@
 import {
   CategorySchema,
   UpdateCategorySchema,
-} from "../schemas/categorySchema";
+} from "./category.schema";
 import {
   CreateCategory,
   DeleteCategory,
   GetAllCategory,
   GetCategoryById,
   UpdateCategory,
-} from "../services/categoryService";
+} from "./category.service";
 import { ExtendedRequest } from "../types/extendsRequest";
 import { RequestHandler, Response } from "express";
 export const AddCategory = async (req: ExtendedRequest, res: Response) => {

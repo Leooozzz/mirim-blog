@@ -1,6 +1,6 @@
 import { Router } from "express";
-import * as postController from "../controllers/postController";
-import * as CategoryController from '../controllers/categoryController'
+import * as postController from "./post.controller";
+import * as CategoryController from '../category/category.controller'
 export const PostRoutes = Router()
 
 PostRoutes.get('/category', CategoryController.GetCategory)
