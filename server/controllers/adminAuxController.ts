@@ -1,4 +1,5 @@
 import { GetNumberPost, GetNumberPostDraft, GetNumberPostViews } from "../services/postsServices";
+import { GetAllAdmins } from "../services/userService";
 import { ExtendedRequest } from "../types/extendsRequest";
 import { Response } from "express";
 
@@ -31,3 +32,13 @@ export const CountViews = async (req: ExtendedRequest, res: Response) => {
     return res.status(500).json("Internal server error");
   }
 };
+
+export const ListAdmin = async (req:ExtendedRequest,res:Response) => {
+  try{
+    const admin = await GetAllAdmins();
+    return res.json({admin});
+  }catch(error){
+    console.log("ListAdmin",error)
+    return  res.status(500).json("Internal server error")
+  }
+}

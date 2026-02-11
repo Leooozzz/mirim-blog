@@ -38,3 +38,13 @@ export  const GetUserById = async (id:number) =>{
     }
   })
 }
+export const GetAllAdmins = async () =>{
+  return await prisma.user.findMany({
+    select:{
+      id:true,
+      name:true,
+      email:true,
+      status:true
+    }
+  })
+}

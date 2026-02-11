@@ -158,15 +158,15 @@ const Page = () => {
             </h1>
 
             <Link href="/Blog">
-              <Button variant="secondary">Ir para o Blog</Button>
+              <Button variant="secondary" className="cursor-pointer">Ir para o Blog</Button>
             </Link>
           </div>
 
           <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl">
-            Confira os conteúdos mais recentes publicados.
+            Acompanhe os conteúdos mais recentes publicados e fique por dentro das novidades.
           </p>
 
-          <div className="mt-8">
+          <div className="w-full flex flex-col gap-5 mt-10">
             <GetPostsComponents />
           </div>
         </div>

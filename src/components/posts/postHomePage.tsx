@@ -17,13 +17,13 @@ export const GetPostsComponents = async () => {
   };
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
       {posts.map((post) => (
         <Card
           key={post.id}
           className="relative overflow-hidden bg-white border border-gray-200 
                      dark:bg-gray-950 dark:border-gray-800
-                     hover:shadow-lg transition-shadow"
+                     hover:shadow-lg transition-shadow p-0"
         >
         
           <div className="relative h-48 w-full">
