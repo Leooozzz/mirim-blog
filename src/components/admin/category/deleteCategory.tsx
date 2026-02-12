@@ -14,6 +14,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import { Trash2 } from "lucide-react";
 
 type Props = {
   id: number;
@@ -31,7 +32,12 @@ export function DeleteCategoryButton({ id }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="destructive">
+        <Button
+          size="sm"
+          variant="destructive"
+          className="flex items-center gap-1 cursor-pointer"
+        >
+          <Trash2 size={16} />
           Excluir
         </Button>
       </AlertDialogTrigger>

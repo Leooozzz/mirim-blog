@@ -22,7 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil } from "lucide-react";
 
 const Page = async () => {
-  await requireAdmin();
+  const userLog = await requireAdmin();
 
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
@@ -135,14 +135,15 @@ const Page = async () => {
                         <Button
                          size="sm"
                           variant="secondary"
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-1 cursor-pointer"
                         >
                            <Pencil size={16} />
                           Editar
                         </Button>
                       </Link>
-
+                      {userLog.role !== "EDITOR" && (
                       <DeletePostButton slug={post.slug} />
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -171,11 +172,11 @@ const Page = async () => {
 
           <div className="flex  gap-4">
             <Link href="/admin/criar-post">
-              <Button size="lg">Criar novo post</Button>
+              <Button size="lg" className="cursor-pointer">Criar novo post</Button>
             </Link>
 
             <Link href="/admin/listar-categorias">
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="secondary" className="cursor-pointer">
                 Gerenciar categorias
               </Button>
             </Link>

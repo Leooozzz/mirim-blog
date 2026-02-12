@@ -26,6 +26,9 @@ export function DeleteUserButton({ id }: Props) {
   function handleDelete() {
     startTransition(() => {
       deleteUser({ id }).catch(console.error);
+      if(!deleteUser){
+        
+      }
     });
   }
 

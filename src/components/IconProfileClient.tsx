@@ -1,4 +1,3 @@
-// components/IconProfileClient.tsx
 "use client"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -14,6 +13,7 @@ import { LogoutComponent } from "./logoutComponet"
 type Props = {
   user: {
     name: string
+    email:string
   }
 }
 
@@ -31,10 +31,12 @@ export const IconProfileClient = ({ user }: Props) => {
           </Avatar>
 
           <div className="flex flex-col items-start leading-tight">
-            <span className="text-sm font-medium">{firstName}</span>
-            <span className="text-xs text-muted-foreground">
-              {user.name}
+            <span className="text-sm font-medium">{user.name}</span>
+            <div className="flex gap-3">
+              <span className="text-xs text-muted-foreground">
+              {user.email}
             </span>
+            </div>
           </div>
         </Button>
       </DropdownMenuTrigger>

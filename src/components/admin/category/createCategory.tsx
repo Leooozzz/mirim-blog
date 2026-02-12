@@ -80,7 +80,7 @@ export const CreateCategoryForm = () => {
           <AlertDialogTrigger asChild>
             <Button
               type="button"
-              className="w-full gap-2 text-base"
+              className="w-full gap-2 text-base cursor-pointer"
               disabled={pending}
             >
               Criar categoria

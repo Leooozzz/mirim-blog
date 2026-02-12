@@ -28,6 +28,6 @@ export async function deleteUser({ id }: DeletePostProps): Promise<void> {
     revalidatePath("/admin/administradores")
   } catch (error) {
     console.error("Erro ao deletar post:", error);
-    throw new Error("Não foi possível deletar o post");
+    throw new Error("Não foi possível deletar o Usuario")
   }
 }

@@ -6,6 +6,8 @@ import { api } from "@/lib/api";
 type Category = {
   id: number;
   name: string;
+  createdAt:Date,
+  authorName:string
 };
 
 export const GetCategories = async (): Promise<Category[]> => {

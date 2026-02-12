@@ -5,50 +5,56 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 enum Role {
-    ADMIN
-    EDITOR
+  ADMIN
+  EDITOR
 }
 
 enum PostStatus {
   DRAFT
   PUBLISHED
 }
+
 model Category {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String
 
   post Post[]
+
   @@map("categories")
 }
+
 model Post {
-  id Int @id @default(autoincrement())
-  slug String @unique
-  authorId Int
+  id         Int        @id @default(autoincrement())
+  slug       String     @unique
+  authorId   Int
   categoryId Int?
-  status PostStatus @default(PUBLISHED)
-  title String
-  body String
-  createdAt DateTime @default(now())
-  updateAt  DateTime @default(now())
-  cover String
-  tags String @default("")
-  views Int @default(0)
+  status     PostStatus @default(PUBLISHED)
+  title      String
+  body       String
+  createdAt  DateTime   @default(now())
+  updateAt   DateTime   @default(now())
+  cover      String
+  tags       String     @default("")
+  views      Int        @default(0)
 
-
-  author User? @relation(fields: [authorId],references: [id])
+  author User? @relation(fields: [authorId], references: [id])
 
   category Category? @relation(fields: [categoryId], references: [id])
+
   @@map("posts")
 }
-model User{
-  id Int @id @default(autoincrement())
-  status Boolean @default(true)
-  name String
-  email String @unique
-  password String
+
+model User {
+  id        Int      @id @default(autoincrement())
+  status    Boolean  @default(true)
+  name      String
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
-  role Role @default(EDITOR)
-  posts Post[]
+  role      Role     @default(EDITOR)
+  posts     Post[]
+
   @@map("users")
 }

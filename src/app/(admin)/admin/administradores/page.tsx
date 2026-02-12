@@ -12,23 +12,35 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Pencil, Trash2 } from "lucide-react";
+import { BadgePlus, Pencil, Trash2 } from "lucide-react";
 import { DeleteUserButton } from "@/components/admin/user/deleteUser";
+import { requireAdmin } from "@/actions/authAdmin";
+import Link from "next/link";
 
 export const Page = async () => {
+  const userLog = await requireAdmin();
   const user = await ListAdmin();
 
   return (
     <main className="min-h-screen bg-muted/40 p-6">
       <div className="max-w-6xl mx-auto">
         <Card className="shadow-lg border border-muted">
-          <CardHeader className="flex flex-col gap-2 border-b pb-6">
-            <CardTitle className="text-3xl font-bold">
-              Administradores
-            </CardTitle>
-            <p className="text-sm text-muted-foreground">
-              Gerencie os administradores do painel
-            </p>
+          <CardHeader className="border-b pb-6">
+            <div className="flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="text-center md:text-left">
+                <CardTitle className="text-3xl font-bold">
+                  Administradores
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Gerencie os administradores do painel
+                </p>
+              </div>
+              {userLog.role !== "EDITOR" && (
+                <Link href={`/admin/adicionar-usuario/`}>
+              <Button className="cursor-pointer"><BadgePlus/> Adicionar Usuário</Button>
+              </Link>
+              )}
+            </div>
           </CardHeader>
 
           <CardContent className="pt-6">
@@ -41,7 +53,9 @@ export const Page = async () => {
                     <TableHead>Status</TableHead>
                     <TableHead>Criado em</TableHead>
                     <TableHead>Cargo</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                    {userLog.role !== "EDITOR" && (
+                      <TableHead className="text-right">Ações</TableHead>
+                    )}
                   </TableRow>
                 </TableHeader>
 
@@ -70,9 +84,7 @@ export const Page = async () => {
                         </TableCell>
 
                         <TableCell>
-                          <Badge
-                            variant={user.status ? "default" : "destructive"}
-                          >
+                          <Badge variant={user.status ? "default" : "ghost"}>
                             {user.status ? "Ativo" : "Inativo"}
                           </Badge>
                         </TableCell>
@@ -90,21 +102,22 @@ export const Page = async () => {
                             {user.role}
                           </Badge>
                         </TableCell>
+                        {userLog.role !== "EDITOR" && (
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2">
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                className="flex items-center gap-1"
+                              >
+                                <Pencil size={16} />
+                                Editar
+                              </Button>
 
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button
-                              size="sm"
-                              variant="secondary"
-                              className="flex items-center gap-1"
-                            >
-                              <Pencil size={16} />
-                              Editar
-                            </Button>
-
-                            <DeleteUserButton id={user.id} />
-                          </div>
-                        </TableCell>
+                              <DeleteUserButton id={user.id} />
+                            </div>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   )}

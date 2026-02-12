@@ -105,7 +105,7 @@ export const ListPosts = async () => {
                         <Button
                          size="sm"
                           variant="secondary"
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-1 cursor-pointer"
                         >
                            <Pencil size={16} />
                           Editar

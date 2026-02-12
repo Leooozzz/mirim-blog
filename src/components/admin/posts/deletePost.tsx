@@ -35,7 +35,7 @@ export function DeletePostButton({ slug }: Props) {
         <Button
           size="sm"
           variant="destructive"
-          className="flex items-center gap-1"
+          className="flex items-center gap-1 cursor-pointer"
         >
           <Trash2 size={16} />
           Excluir
