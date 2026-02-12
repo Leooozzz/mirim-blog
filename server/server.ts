@@ -8,6 +8,7 @@ import CategoryRoutes from "./category/category.routes";
 import AuxRoutes from "./admin/routes/admin.aux.routes";
 import PostRoutes from "./post/post.routes";
 import AdminPostRoutes from "./admin/routes/adminPostRoutes";
+import AdminEditor from "./admin/routes/admin.editor";
 
 
 configDotenv();
@@ -31,6 +32,7 @@ server.use('/auth',AuthRoutes)
 server.use ('/admin/category',CategoryRoutes)
 server.use('/admin',AdminPostRoutes)
 server.use('/admin',AuxRoutes)
+server.use('/admin',AdminEditor)
 
 
 server.use((err: any, req: Request, res: Response, next: NextFunction) => {

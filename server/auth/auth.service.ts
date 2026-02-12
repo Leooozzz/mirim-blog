@@ -46,9 +46,9 @@ export const CreateUser = async ({ name, email, password }: UserTypeSingUp) => {
   const user = await prisma.user.findFirst({ where: { email } });
   if (user) return false;
 
-  const new_password = bcrypt.hashSync(password, 10);
+  const newPassword = bcrypt.hashSync(password, 10);
 
   return await prisma.user.create({
-    data: { name, email, password: new_password },
+    data: { name, email, password: newPassword },
   });
 };

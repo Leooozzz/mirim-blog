@@ -12,23 +12,27 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DeletePostButton } from "./deletePost";
+import { Pencil } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const ListPosts = async () => {
   const posts = await GetPost();
 
   return (
     <div className="min-h-screen bg-muted/40 p-6">
-      <div className="mx-auto max-w-7xl">
-        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Posts do Blog</h1>
+      <div className="mx-auto max-w-6xl">
+        <Card className="shadow-lg border border-muted">
+        <CardHeader className="flex flex-col gap-2 border-b pb-6">
+            <CardTitle className="text-3xl font-bold">
+              Posts do blog
+            </CardTitle>
             <p className="text-sm text-muted-foreground">
-              Gerencie seus posts publicados e rascunhos
+              Gerencie os posts do blog
             </p>
-          </div>
-        </header>
+          </CardHeader>
 
-        <div className="rounded-xl border bg-card shadow-lg overflow-hidden">
+        <CardContent className="pt-6">
+         <div className="rounded-lg border overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
@@ -99,10 +103,11 @@ export const ListPosts = async () => {
                     <div className="flex justify-end gap-2">
                       <Link href={`/admin/post/edit/${post.slug}`}>
                         <Button
-                          size="sm"
+                         size="sm"
                           variant="secondary"
-                          className="cursor-pointer"
+                          className="flex items-center gap-1"
                         >
+                           <Pencil size={16} />
                           Editar
                         </Button>
                       </Link>
@@ -125,7 +130,9 @@ export const ListPosts = async () => {
               )}
             </TableBody>
           </Table>
-        </div>
+          </div>
+        </CardContent>
+        </Card>
       </div>
     </div>
   );

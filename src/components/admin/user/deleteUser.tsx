@@ -1,6 +1,6 @@
 "use client";
 
-import { deletePost } from "@/actions/deletePost";
+import { deleteCategory } from "@/actions/deleteCategory";
 import { Button } from "../../ui/button";
 import { useTransition } from "react";
 import {
@@ -14,45 +14,41 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { Trash2 } from "lucide-react";
+import { deleteUser } from "@/actions/deleteUser";
 
 type Props = {
-  slug: string;
+  id: number;
 };
 
-export function DeletePostButton({ slug }: Props) {
+export function DeleteUserButton({ id }: Props) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
     startTransition(() => {
-      deletePost({ slug }).catch(console.error);
+      deleteUser({ id }).catch(console.error);
     });
   }
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          size="sm"
-          variant="destructive"
-          className="flex items-center gap-1"
-        >
-          <Trash2 size={16} />
+        <Button size="sm" variant="destructive">
           Excluir
         </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Excluir post</AlertDialogTitle>
+          <AlertDialogTitle>Excluir usuario</AlertDialogTitle>
           <AlertDialogDescription>
-            Essa ação não pode ser desfeita. O post será removido
-            permanentemente.
+            Essa ação não pode ser desfeita. A usuario será removido
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancelar</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>
+            Cancelar
+          </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={handleDelete}

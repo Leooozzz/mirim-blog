@@ -13,9 +13,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
+import { DeleteUserButton } from "@/components/admin/user/deleteUser";
 
 export const Page = async () => {
-  const admins = await ListAdmin();
+  const user = await ListAdmin();
 
   return (
     <main className="min-h-screen bg-muted/40 p-6">
@@ -45,7 +46,7 @@ export const Page = async () => {
                 </TableHeader>
 
                 <TableBody>
-                  {admins.length === 0 ? (
+                  {user.length === 0 ? (
                     <TableRow>
                       <TableCell
                         colSpan={6}
@@ -55,42 +56,38 @@ export const Page = async () => {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    admins.map((admin) => (
+                    user.map((user) => (
                       <TableRow
-                        key={admin.id}
+                        key={user.id}
                         className="hover:bg-muted/40 transition-colors"
                       >
                         <TableCell className="font-medium">
-                          {admin.name}
+                          {user.name}
                         </TableCell>
 
                         <TableCell className="text-muted-foreground">
-                          {admin.email}
+                          {user.email}
                         </TableCell>
 
                         <TableCell>
                           <Badge
-                            variant={admin.status ? "default" : "destructive"}
+                            variant={user.status ? "default" : "destructive"}
                           >
-                            {admin.status ? "Ativo" : "Inativo"}
+                            {user.status ? "Ativo" : "Inativo"}
                           </Badge>
                         </TableCell>
 
                         <TableCell>
-                          {new Date(admin.createdAt).toLocaleDateString(
-                            "pt-BR"
-                          )}
+                          {new Date(user.createdAt).toLocaleDateString("pt-BR")}
                         </TableCell>
 
                         <TableCell>
                           <Badge
                             variant={
-                              admin.role === "ADMIN"
-                                ? "default"
-                                : "secondary"
+                              user.role === "ADMIN" ? "default" : "secondary"
                             }
                           >
-                            {admin.role}
+                            {user.role}
                           </Badge>
                         </TableCell>
 
@@ -105,14 +102,7 @@ export const Page = async () => {
                               Editar
                             </Button>
 
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              className="flex items-center gap-1"
-                            >
-                              <Trash2 size={16} />
-                              Excluir
-                            </Button>
+                            <DeleteUserButton id={user.id} />
                           </div>
                         </TableCell>
                       </TableRow>

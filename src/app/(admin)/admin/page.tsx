@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
 import { DeletePostButton } from "@/components/admin/posts/deletePost";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pencil } from "lucide-react";
 
 const Page = async () => {
   await requireAdmin();
@@ -25,7 +27,7 @@ const Page = async () => {
   const totalPosts = await GetPostCountPublished();
   const totalPostDraft = await GetPostCountDraft();
   const totalViews = await GetViewsCount();
-  const posts = await GetPost(3);
+  const posts = await GetPost(5);
 
   return (
     <main className="min-h-screen bg-muted/40 p-6">
@@ -52,55 +54,60 @@ const Page = async () => {
           </div>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Posts recentes</h2>
+        <div className="bg-muted/40 ">
+      <div className="">
+        <Card className="shadow-lg border border-muted">
+        <CardHeader className="flex flex-col gap-2 border-b pb-6">
+            <CardTitle className="text-3xl font-bold">
+              Posts mais recente
+            </CardTitle>
+          </CardHeader>
 
-          <div className="rounded-xl border bg-card shadow-lg overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/50">
-                  <TableHead>Título</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Criado em</TableHead>
-                  <TableHead>Autor</TableHead>
-                  <TableHead>Categoria</TableHead>
-                  <TableHead className="text-right">Ações</TableHead>
-                </TableRow>
-              </TableHeader>
+        <CardContent className="pt-6">
+         <div className="rounded-lg border overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead>Título</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Criado em</TableHead>
+                <TableHead>Autor</TableHead>
+                <TableHead>Categoria</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
 
-              <TableBody>
-                {posts.map((post) => (
-                  <TableRow
-                    key={post.id}
-                    className="hover:bg-muted/40 transition-colors"
-                  >
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="h-11 w-11 overflow-hidden rounded-lg border bg-muted">
-                          <img
-                            src={post.cover}
-                            alt={post.title}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-
-                        <Link
-                          href={`/admin/post/${post.slug}`}
-                          className="font-medium hover:underline line-clamp-1"
-                        >
-                          {post.title}
-                        </Link>
+            <TableBody>
+              {posts.map((post) => (
+                <TableRow
+                  key={post.id}
+                  className="hover:bg-muted/40 transition-colors"
+                >
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <div className="h-11 w-11 overflow-hidden rounded-lg border bg-muted">
+                        <img
+                          src={post.cover}
+                          alt={post.title}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
-                    </TableCell>
 
-                   <TableCell>
+                      <Link
+                        href={`/admin/post/${post.slug}`}
+                        className="font-medium hover:underline line-clamp-1"
+                      >
+                        {post.title}
+                      </Link>
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
                     {" "}
                     <Badge
                       variant="secondary"
                       className={
-                        post.status === "Publicado"
-                          ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
-                          : "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400"
+                        post.status === "Publicado" ? "bg-blue-500/15 text-blue-600 dark:text-blue-400": "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400"
                       }
                     >
                       {" "}
@@ -108,53 +115,61 @@ const Page = async () => {
                     </Badge>{" "}
                   </TableCell>
 
-                    <TableCell className="text-muted-foreground">
-                      {new Date(post.createdAt).toLocaleDateString("pt-BR")}
-                    </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {new Date(post.createdAt).toLocaleDateString("pt-BR")}
+                  </TableCell>
 
-                    <TableCell>
-                      <span className="font-medium">{post.authorName}</span>
-                    </TableCell>
+                  <TableCell>
+                    <span className="font-medium">{post.authorName}</span>
+                  </TableCell>
 
-                    <TableCell>
-                      <span className="rounded-md bg-blue-500/10 px-2 py-1 text-sm font-medium text-blue-600 dark:text-blue-400">
-                        {post.category || "Sem categoria"}
-                      </span>
-                    </TableCell>
+                  <TableCell>
+                    <span className="rounded-md bg-blue-500/10 px-2 py-1 text-sm font-medium text-blue-600 dark:text-blue-400">
+                      {post.category || "Sem categoria"}
+                    </span>
+                  </TableCell>
 
-                    <TableCell>
-                      <div className="flex justify-end gap-2">
-                        <Link href={`/admin/post/edit/${post.slug}`}>
-                          <Button size="sm" variant="secondary">
-                            Editar
-                          </Button>
-                        </Link>
+                  <TableCell>
+                    <div className="flex justify-end gap-2">
+                      <Link href={`/admin/post/edit/${post.slug}`}>
+                        <Button
+                         size="sm"
+                          variant="secondary"
+                          className="flex items-center gap-1"
+                        >
+                           <Pencil size={16} />
+                          Editar
+                        </Button>
+                      </Link>
 
-                        <DeletePostButton slug={post.slug} />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <DeletePostButton slug={post.slug} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
 
-                {posts.length === 0 && (
-                  <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      className="py-20 text-center text-sm text-muted-foreground"
-                    >
-                      Nenhum post encontrado.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+              {posts.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="py-20 text-center text-sm text-muted-foreground"
+                  >
+                    Nenhum post encontrado.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
           </div>
-        </section>
+        </CardContent>
+        </Card>
+      </div>
+    </div>
 
-        <section className="space-y-4">
+        <section className="space-y-4 ">
           <h2 className="text-xl font-semibold">Ações rápidas</h2>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex  gap-4">
             <Link href="/admin/criar-post">
               <Button size="lg">Criar novo post</Button>
             </Link>

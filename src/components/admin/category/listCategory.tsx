@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DeleteCategoryButton } from "./deleteCategory";
-import Link from "next/link";
+
 
 export const ListCategory = async () => {
   const categories = await GetCategories();
