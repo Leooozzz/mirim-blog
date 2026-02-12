@@ -7,7 +7,9 @@ export  const GetUserById = async (id:number) =>{
       id:true,
       name:true,
       email:true,
-      status:true
+      status:true,
+      createdAt:true,
+      role:true
     }
   })
 }

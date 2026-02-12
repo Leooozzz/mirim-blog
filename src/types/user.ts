@@ -2,5 +2,8 @@ export type ListAdminTypes = {
     id:number,
     name:string,
     email:string,
-    status:boolean
+    status:boolean,
+    createdAt:Date,
+    role:string
+
 }

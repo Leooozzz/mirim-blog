@@ -17,104 +17,115 @@ export const ListPosts = async () => {
   const posts = await GetPost();
 
   return (
-    <div className="mx-auto max-w-6xl p-6">
-      <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Posts do Blog</h1>
-          <p className="text-sm text-muted-foreground">
-            Gerencie seus posts publicados e rascunhos
-          </p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-muted/40 p-6">
+      <div className="mx-auto max-w-7xl">
+        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Posts do Blog</h1>
+            <p className="text-sm text-muted-foreground">
+              Gerencie seus posts publicados e rascunhos
+            </p>
+          </div>
+        </header>
 
-      <div className="rounded-xl border bg-card shadow-sm">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Título</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Criado em</TableHead>
-              <TableHead>Autor</TableHead>
-              <TableHead>Categoria</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
+        <div className="rounded-xl border bg-card shadow-lg overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead>Título</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Criado em</TableHead>
+                <TableHead>Autor</TableHead>
+                <TableHead>Categoria</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
 
-          <TableBody>
-            {posts.map((post) => (
-              <TableRow key={post.id}>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 overflow-hidden rounded-md border ">
-                      <img
-                        src={post.cover}
-                        alt={post.title}
-                        className="h-full w-full object-cover"
-                      />
+            <TableBody>
+              {posts.map((post) => (
+                <TableRow
+                  key={post.id}
+                  className="hover:bg-muted/40 transition-colors"
+                >
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <div className="h-11 w-11 overflow-hidden rounded-lg border bg-muted">
+                        <img
+                          src={post.cover}
+                          alt={post.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+
+                      <Link
+                        href={`/admin/post/${post.slug}`}
+                        className="font-medium hover:underline line-clamp-1"
+                      >
+                        {post.title}
+                      </Link>
                     </div>
+                  </TableCell>
 
-                    <Link
-                      href={`/admin/post/${post.slug}`}
-                      className="font-medium hover:underline"
+                  <TableCell>
+                    {" "}
+                    <Badge
+                      variant="secondary"
+                      className={
+                        post.status === "Publicado"
+                          ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
+                          : "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400"
+                      }
                     >
-                      {post.title}
-                    </Link>
-                  </div>
-                </TableCell>
+                      {" "}
+                      {post.status}{" "}
+                    </Badge>{" "}
+                  </TableCell>
 
-                <TableCell>
-                  <Badge
-                    variant="secondary"
-                    className={
-                      post.status === "Publicado"
-                        ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
-                        : "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400"
-                    }
-                  >
-                    {post.status}
-                  </Badge>
-                </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {new Date(post.createdAt).toLocaleDateString("pt-BR")}
+                  </TableCell>
 
-                <TableCell className="">
-                  {new Date(post.createdAt).toLocaleDateString("pt-BR")}
-                </TableCell>
+                  <TableCell>
+                    <span className="font-medium">{post.authorName}</span>
+                  </TableCell>
 
-                <TableCell>
-                  <span className="font-medium">{post.authorName}</span>
-                </TableCell>
+                  <TableCell>
+                    <span className="rounded-md bg-blue-500/10 px-2 py-1 text-sm font-medium text-blue-600 dark:text-blue-400">
+                      {post.category || "Sem categoria"}
+                    </span>
+                  </TableCell>
 
-                <TableCell>
-                  <span className="font-medium text-blue-500">
-                    {post.category}
-                  </span>
-                </TableCell>
-
-                <TableCell>
-                  <div className="flex justify-end gap-2">
-                    <Link href={`/admin/post/edit/${post.slug}`}>
-                        <Button size="sm" variant="secondary" className="cursor-pointer">
+                  <TableCell>
+                    <div className="flex justify-end gap-2">
+                      <Link href={`/admin/post/edit/${post.slug}`}>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="cursor-pointer"
+                        >
                           Editar
                         </Button>
                       </Link>
 
-                    <DeletePostButton slug={post.slug} />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+                      <DeletePostButton slug={post.slug} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
 
-            {posts.length === 0 && (
-              <TableRow>
-                <TableCell
-                  colSpan={5}
-                  className="py-16 text-center text-sm text-muted-foreground"
-                >
-                  Nenhum post encontrado.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              {posts.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="py-20 text-center text-sm text-muted-foreground"
+                  >
+                    Nenhum post encontrado.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );

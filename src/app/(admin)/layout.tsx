@@ -25,7 +25,7 @@ export default async function Layout({
         <header className="w-full bg-blue-500 dark:bg-blue-900 px-4 py-3">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <SidebarTrigger className="text-white" />
+              <SidebarTrigger className="text-white md:hidden" />
 
               <h1 className="text-lg sm:text-2xl font-bold text-white whitespace-nowrap">
                 <Link href="/admin">Painel Administrador</Link>

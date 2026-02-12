@@ -6,7 +6,9 @@ export const GetAllAdmins = async () =>{
       id:true,
       name:true,
       email:true,
-      status:true
+      status:true,
+      role:true,
+      createdAt:true
     }
   })
 }

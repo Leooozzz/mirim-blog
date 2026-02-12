@@ -1,11 +1,15 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
+enum Role {
+    ADMIN
+    EDITOR
+}
+
 enum PostStatus {
   DRAFT
   PUBLISHED
@@ -43,6 +47,8 @@ model User{
   name String
   email String @unique
   password String
+  createdAt DateTime @default(now())
+  role Role @default(EDITOR)
   posts Post[]
   @@map("users")
 }
