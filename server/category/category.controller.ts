@@ -1,7 +1,4 @@
-import {
-  CategorySchema,
-  UpdateCategorySchema,
-} from "./category.schema";
+import { CategorySchema, UpdateCategorySchema } from "./category.schema";
 import {
   CreateCategory,
   DeleteCategory,
@@ -11,6 +8,7 @@ import {
 } from "./category.service";
 import { ExtendedRequest } from "../types/extendsRequest";
 import { RequestHandler, Response } from "express";
+import { GetUserById } from "../services/user.service";
 export const AddCategory = async (req: ExtendedRequest, res: Response) => {
   try {
     if (!req.user) {
@@ -21,11 +19,15 @@ export const AddCategory = async (req: ExtendedRequest, res: Response) => {
       return res.status(400).json({ error: data.error.flatten() });
     }
 
-    const category = await CreateCategory(data.data.name);
-    console.log(category);
+    const category = await CreateCategory({
+      name: data.data.name,
+      authorId: req.user.id,
+    });
+    const user = await GetUserById(req.user.id);
     return res.status(201).json({
       id: category.id,
       name: category.name,
+       authorName: user?.name
     });
   } catch (error) {
     console.log("AddCategory", error);
@@ -79,9 +81,7 @@ export const GetCategory: RequestHandler = async (req, res) => {
     }
     return res.json({ category });
   } catch (error) {
-    console.log("Get Category",error);
-    return res.status(500).json("Internal server error")
+    console.log("Get Category", error);
+    return res.status(500).json("Internal server error");
   }
 };
-
-

@@ -63,7 +63,7 @@ export const ListCategory = async () => {
                   </TableCell>
 
                   <TableCell>
-                    <span className="font-medium">{cat.authorName}</span>
+                    <span className="font-medium">{cat.author.name}</span>
                   </TableCell>
 
                   <TableCell>

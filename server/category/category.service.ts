@@ -1,8 +1,16 @@
 import { prisma } from "../lib/prisma";
+import { CreateCategoryType } from "./category.type";
 
-export const CreateCategory = async (name: string) => {
+export const CreateCategory = async (data: CreateCategoryType) => {
   return prisma.category.create({
-    data: { name },
+    data,
+    include:{
+      author:{
+        select:{
+          name:true
+        }
+      }
+    }
   });
 };
 export const GetCategoryById = async (id: number) => {
@@ -11,6 +19,13 @@ export const GetCategoryById = async (id: number) => {
 export const GetAllCategory = async () => {
   return await prisma.category.findMany({
     orderBy: { name: "asc" },
+    include:{
+      author:{
+        select:{
+          name:true
+        }
+      }
+    }
   });
 };
 export const DeleteCategory = async (id: number) => {

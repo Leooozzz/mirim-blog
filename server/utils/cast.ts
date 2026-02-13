@@ -1,6 +1,6 @@
 import { defineAbility } from "@casl/ability";
-import { Role } from "../generated/prisma/enums";
-import { User } from "../generated/prisma/client";
+import { Role, User } from "../../generated/prisma";
+
 
 export function defineAbilitiesFor(user: User) {
   return defineAbility((can, cannot) => {

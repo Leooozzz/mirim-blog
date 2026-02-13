@@ -7,7 +7,9 @@ type Category = {
   id: number;
   name: string;
   createdAt:Date,
-  authorName:string
+  author:{
+    name:string
+  }
 };
 
 export const GetCategories = async (): Promise<Category[]> => {
