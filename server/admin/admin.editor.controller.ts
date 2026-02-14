@@ -1,7 +1,6 @@
 import { Response } from "express";
 import { ExtendedRequest } from "../types/extendsRequest";
 import { AdminEditorSchema } from "./admin.editor.schema";
-import { CreateToken } from "../auth/auth.service";
 import { CreateEditor, DeleteUser } from "./admin.editor.service";
 
 export const AdminCreateEditor = async (

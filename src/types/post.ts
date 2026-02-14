@@ -54,6 +54,9 @@ export type RelatedPostBySlug = {
   createdAt:string,
   cover:string,
   authorName:string,
+  category:{
+    name:string
+  }
   tags:string,
   slug:string
 }

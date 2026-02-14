@@ -23,7 +23,7 @@ export const GetPostBlog = async () => {
           key={post.id}
           className="relative overflow-hidden bg-white border border-gray-200 
                      dark:bg-gray-950 dark:border-gray-800
-                     hover:shadow-lg transition-shadow"
+                     hover:shadow-lg transition-shadow p-0"
         >
         
           <div className="relative h-48 w-full">

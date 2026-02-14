@@ -81,6 +81,7 @@ export const GetRelatedPost: RequestHandler = async (req, res) => {
     cover: CoverToUrl(post.cover),
     authorName: post.author?.name,
     tags: post.tags,
+    category:post.category,
     slug: post.slug,
   }));
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { GetPostsSlugRelated } from "@/actions/getPostSlugRelated";
+import { Badge } from "../ui/badge";
 
 type Props = {
   slug: string;
@@ -21,66 +22,64 @@ export const RelatedPostsBySlug = async ({ slug }: Props) => {
         Posts relacionados
       </h2>
 
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-        {posts.map((post) => (
-          <Card
-            key={post.id}
-            className="
-              group overflow-hidden
-              border border-gray-200 dark:border-gray-800
-              bg-white dark:bg-gray-950
-              transition-all duration-300
-              hover:-translate-y-1 hover:shadow-lg p-1
-            "
-          >
-            <CardContent className="p-0 flex flex-col h-full">
-          
-              {post.cover && (
-                <div className="relative overflow-hidden">
-                  <img
-                    src={post.cover}
-                    alt={post.title}
-                    loading="lazy"
-                    className="
-                      aspect-3/2 w-full object-cover
-                      transition-transform duration-500
-                      group-hover:scale-105 rounded-md
-                    "
-                  />
-                </div>
-              )}
-
+       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <Card
+          key={post.id}
+          className="relative overflow-hidden bg-white border border-gray-200 
+                     dark:bg-gray-950 dark:border-gray-800
+                     hover:shadow-lg transition-shadow p-0"
+        >
         
-              <div className="flex flex-col justify-between p-4 gap-3 flex-1">
-                <div className="space-y-2">
-                  <h3 className="text-base font-semibold leading-snug line-clamp-2">
-                    {post.title}
-                  </h3>
+          <div className="relative h-48 w-full">
+            <img
+              src={post.cover}
+              alt={post.title}
+              className="h-full w-full object-fill"
+            />
+          </div>
 
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {truncateText(post.body)}
-                  </p>
-                </div>
+       
+          <CardHeader className="space-y-2">
+            <Badge
+              variant="secondary"
+              className="w-fit bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
+            >
+              {post.category.name}
+            </Badge>
 
-                <Link
-                  href={`/posts/${post.slug}`}
-                  className="
-                    mt-2 inline-flex items-center gap-1
-                    text-sm font-medium text-blue-600
-                    hover:text-blue-700
-                    dark:text-blue-400 dark:hover:text-blue-300
-                  "
-                >
-                  Ler post
-                  <span className="transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            <h2 className="text-lg font-semibold leading-snug line-clamp-2 text-gray-900 dark:text-gray-100">
+              {post.title}
+            </h2>
+          </CardHeader>
+
+  
+          <CardContent>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {truncateText(post.body, 80)}{" "}
+              <span className="text-blue-600 dark:text-blue-500 font-medium">
+                Leia mais
+              </span>
+            </p>
+          </CardContent>
+
+         
+          <CardFooter className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-500">
+            <span>{post.authorName}</span>
+            <span>
+              {new Date(post.createdAt).toLocaleDateString("pt-BR")}
+            </span>
+          </CardFooter>
+
+         
+          <Link
+            href={`/posts/${post.slug}`}
+            className="absolute inset-0"
+            aria-label={`Ler post ${post.title}`}
+          />
+        </Card>
+      ))}
+    </div>
     </section>
   );
 };
