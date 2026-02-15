@@ -51,6 +51,21 @@ export const DeletedCategory = async (req: ExtendedRequest, res: Response) => {
     return res.status(500).json("Internal server error");
   }
 };
+export const GetCategory = async (req:ExtendedRequest, res:Response) =>{
+  try{
+    const {id} = req.params
+    const category = await GetCategoryById(Number(id))
+    if(!category){
+      return res.json({error: "Non-Existent Category"})
+    }
+    return res.json(category)
+  }catch(error){
+    console.log("Get Category", error);
+    return res.status(500).json("Internal server error");
+  }
+}
+
+
 
 export const EditCategory = async (req: ExtendedRequest, res: Response) => {
   try {
@@ -73,7 +88,8 @@ export const EditCategory = async (req: ExtendedRequest, res: Response) => {
     return res.status(500).json("Internal server error");
   }
 };
-export const GetCategory: RequestHandler = async (req, res) => {
+
+export const GetCategories: RequestHandler = async (req, res) => {
   try {
     const category = await GetAllCategory();
     if (!category) {

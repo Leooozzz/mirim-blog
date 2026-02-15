@@ -7,7 +7,7 @@ import { AuthRoutes } from "./auth/auth.routes";
 import CategoryRoutes from "./category/category.routes";
 import AuxRoutes from "./admin/routes/admin.aux.routes";
 import PostRoutes from "./post/post.routes";
-import AdminPostRoutes from "./admin/routes/adminPostRoutes";
+import AdminPostRoutes from "./admin/routes/admin.post.routes";
 import AdminEditor from "./admin/routes/admin.editor";
 
 

@@ -8,13 +8,11 @@ import { Category } from "@/types/category";
 import { EditPostFormData } from "@/types/post";
 import {
   ChangeEvent,
-  FormEvent,
   useEffect,
   useState,
   useTransition,
 } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
