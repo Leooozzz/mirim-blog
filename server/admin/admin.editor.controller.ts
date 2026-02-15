@@ -1,7 +1,8 @@
 import { Response } from "express";
 import { ExtendedRequest } from "../types/extendsRequest";
-import { AdminEditorSchema } from "./admin.editor.schema";
-import { CreateEditor, DeleteUser } from "./admin.editor.service";
+import { AdminEditorSchema, AdminUpdateEditorSchema } from "./admin.editor.schema";
+import { AdminUpdateEditorService, CreateEditor, DeleteUser } from "./admin.editor.service";
+import { GetUserById } from "../services/user.service";
 
 export const AdminCreateEditor = async (
   req: ExtendedRequest,
@@ -60,3 +61,4 @@ export const AdminDeleteEditor = async (
     return res.status(500).json("Internal server error");
   }
 };
+

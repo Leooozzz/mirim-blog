@@ -43,6 +43,7 @@ export type EditPostFormData = {
   body?: string;
   categoryId?: number;
   cover?: File | null;
+  status: "DRAFT" | "PUBLISHED";
 };
 
 

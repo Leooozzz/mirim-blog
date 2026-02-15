@@ -1,5 +1,7 @@
+import { Prisma } from "../../generated/prisma";
 import { prisma } from "../lib/prisma";
-import { AdminEditorType } from "./admin.types";
+import { GetUserById } from "../services/user.service";
+import { AdminEditorType, AdminUpdateUserType } from "./admin.types";
 import bcrypt from 'bcrypt'
 
 export const CreateEditor = async ({name,email,password}:AdminEditorType) => {
@@ -21,3 +23,4 @@ export const DeleteUser = async (id: number) =>{
     where: { id },
   });
 }
+

@@ -6,12 +6,7 @@ import { GetPostBySlug } from "@/actions/getPostBySlug";
 import { EditPostSchema, ErrorStructure } from "@/schemas/postSchema";
 import { Category } from "@/types/category";
 import { EditPostFormData } from "@/types/post";
-import {
-  ChangeEvent,
-  useEffect,
-  useState,
-  useTransition,
-} from "react";
+import { ChangeEvent, useEffect, useState, useTransition } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,6 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { redirect } from "next/navigation";
 
 type Props = {
   slug: string;
@@ -47,6 +43,7 @@ const INITIAL_FORM: EditPostFormData = {
   body: "",
   categoryId: undefined,
   cover: null,
+  status: "PUBLISHED",
 };
 
 export const EditPostComponent = ({ slug }: Props) => {
@@ -58,11 +55,13 @@ export const EditPostComponent = ({ slug }: Props) => {
 
   useEffect(() => {
     GetPostBySlug(slug).then((post) => {
+
       setForm({
         title: post?.title ?? "",
         body: post?.body ?? "",
         tags: post?.tags ?? "",
         categoryId: post?.category ? Number(post.category) : undefined,
+        status: post?.status ? 'PUBLISHED' : 'DRAFT',
         cover: null,
       });
     });
@@ -116,6 +115,8 @@ export const EditPostComponent = ({ slug }: Props) => {
       if (res?.error) {
         setErrors({ form: res.error });
         return;
+      }else{
+        redirect ('/admin/listar-post')
       }
     });
   };
@@ -211,6 +212,35 @@ export const EditPostComponent = ({ slug }: Props) => {
             <p className="text-xs text-destructive">{errors.categoryId}</p>
           )}
         </div>
+        <div className="space-y-2">
+          <Label className="text-sm text-muted-foreground">
+            Status do post
+          </Label>
+
+          <div className="space-y-1.5">
+            <Label className="text-sm text-muted-foreground">Status</Label>
+
+            <Select
+              value={form.status}
+              onValueChange={(value) =>
+                setForm((prev) => ({
+                  ...prev,
+                  status: value as "DRAFT" | "PUBLISHED",
+                }))
+              }
+              disabled={pending}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione o status" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="DRAFT">Rascunho</SelectItem>
+                <SelectItem value="PUBLISHED">Publicado</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
         <div className="space-y-2">
           <Label className="text-sm text-muted-foreground">
@@ -255,7 +285,7 @@ export const EditPostComponent = ({ slug }: Props) => {
             <AlertDialogHeader>
               <AlertDialogTitle>Editar post?</AlertDialogTitle>
               <AlertDialogDescription>
-                O post será publicado e ficará visível para os leitores. Você
+                O post será atualizado. Você
                 pode editá-lo novamente depois.
               </AlertDialogDescription>
             </AlertDialogHeader>

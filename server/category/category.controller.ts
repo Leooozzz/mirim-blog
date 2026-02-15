@@ -37,6 +37,9 @@ export const AddCategory = async (req: ExtendedRequest, res: Response) => {
 
 export const DeletedCategory = async (req: ExtendedRequest, res: Response) => {
   try {
+     if (!req.user) {
+      return res.status(401).json({ error: "Acess denied" });
+    }
     const { id } = req.params;
 
     const category = await DeleteCategory(Number(id));
@@ -65,10 +68,11 @@ export const GetCategory = async (req:ExtendedRequest, res:Response) =>{
   }
 }
 
-
-
 export const EditCategory = async (req: ExtendedRequest, res: Response) => {
   try {
+     if (!req.user) {
+      return res.status(401).json({ error: "Acess denied" });
+    }
     const { id } = req.params;
     const data = UpdateCategorySchema.safeParse(req.body);
     if (!data.success) {

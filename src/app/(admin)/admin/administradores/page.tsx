@@ -54,7 +54,7 @@ export const Page = async () => {
                     <TableHead>Criado em</TableHead>
                     <TableHead>Cargo</TableHead>
                     {userLog.role !== "EDITOR" && (
-                      <TableHead className="text-right">Ações</TableHead>
+                      <TableHead className="text-right">Ação</TableHead>
                     )}
                   </TableRow>
                 </TableHeader>
@@ -105,15 +105,6 @@ export const Page = async () => {
                         {userLog.role !== "EDITOR" && (
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
-                              <Button
-                                size="sm"
-                                variant="secondary"
-                                className="flex items-center gap-1"
-                              >
-                                <Pencil size={16} />
-                                Editar
-                              </Button>
-
                               <DeleteUserButton id={user.id} />
                             </div>
                           </TableCell>
