@@ -126,7 +126,7 @@ export const Page = () => {
               </CardContent>
 
               <CardFooter>
-                <Button type="submit" className="w-full bg-blue-500S">
+                <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-500 cursor-pointer">
                   Enviar pelo WhatsApp
                 </Button>
               </CardFooter>

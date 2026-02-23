@@ -1,5 +1,6 @@
 import { GetCategories } from "@/actions/getCategory";
 import Link from "next/link";
+import { HoverMotion } from "../animate/hoverMotion";
 
 export const ListCategoryBlog = async () => {
   const categories = await GetCategories();
@@ -22,7 +23,9 @@ export const ListCategoryBlog = async () => {
             transition
           "
         >
+          <HoverMotion>
           {cat.name}
+          </HoverMotion>
         </Link>
       ))}
 
