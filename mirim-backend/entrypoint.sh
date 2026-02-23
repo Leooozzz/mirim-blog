@@ -1,13 +1,17 @@
 #!/bin/sh
 
+set -e
 
-echo "Aguardadno banco de dados em db:5432"
+echo "Aguardando PostgreSQL..."
 
-sleep 12
+until pg_isready -h db -p 5432; do
+  echo "Postgres ainda não está pronto... aguardando 2s"
+  sleep 2
+done
 
-echo "Banco de dados ON! executando migrations"
+echo "Banco de dados ON! Executando migrations..."
 
 npm run db:setup
 
-echo "Iniciando a aplicação"
+echo "Iniciando a aplicação..."
 npm run dev
