@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:16
+    container_name: mirimblog
+    restart: always
+    environment:
+      POSTGRES_USER: mirim
+      POSTGRES_PASSWORD: mirim123
+      POSTGRES_DB: mirimblog
+    ports:
+      - "5433:5432"
+    volumes:
+      - banco-data:/var/lib/postgresql/data
+
+  backend:
+    container_name: mirim-backend
+    build:
+      context: ./mirim-backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./mirim-backend:/app
+      - /app/node_modules
+      - imagenspost:/app/public/images/covers
+    env_file:
+      - ./mirim-backend/.env
+    depends_on:
+      - db
+    
+
+  frontend:
+    container_name: mirim-frontend
+    build:
+      context: ./mirim-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./mirim-frontend:/app
+      - /app/node_modules
+      - /app/.next
+    env_file:
+      - ./mirim-frontend/.env
+    depends_on:
+      - backend
+    
+
+volumes:
+  banco-data:
+  imagenspost:
+
