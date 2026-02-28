@@ -11,7 +11,7 @@
     "build": "tsup",
     "start": "node dist/server.js",
     "seed": "tsx prisma/seed.ts",
-    "db:setup": "npx prisma migrate dev && npx prisma generate && tsx prisma/seed.ts"
+    "db:setup": "npx prisma migrate deploy && npx prisma generate && tsx prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

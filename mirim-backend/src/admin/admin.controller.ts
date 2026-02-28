@@ -102,6 +102,9 @@ export const EditPost = async (req: ExtendedRequest, res: Response) => {
       tags: data.data.tags ?? undefined,
       body: data.data.body ?? undefined,
       cover: cover_name ? cover_name : undefined,
+      category: data.data.categoryId
+      ? { connect: { id: Number(data.data.categoryId) } }
+      : undefined,
     });
 
     const author = await GetUserById(posts.authorId);
@@ -116,6 +119,7 @@ export const EditPost = async (req: ExtendedRequest, res: Response) => {
         createdAt: posts.createdAt,
         cover: CoverToUrl(posts.cover),
         tags: posts.tags,
+        category:posts.categoryId,
         authorName: author?.name,
       },
     });

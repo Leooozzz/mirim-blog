@@ -9,9 +9,16 @@ until pg_isready -h db -p 5432; do
   sleep 2
 done
 
-echo "Banco de dados ON! Executando migrations..."
+echo "Banco de dados ON!"
 
-npm run db:setup
+echo "Executando migrations..."
+npx prisma migrate deploy
 
-echo "Iniciando a aplicação..."
-npm run dev
+echo "Gerando Prisma Client..."
+npx prisma generate
+
+echo "Buildando aplicação..."
+npm run build
+
+echo "Iniciando servidor..."
+npm run start

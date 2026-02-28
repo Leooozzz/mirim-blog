@@ -20,8 +20,6 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./mirim-backend:/app
-      - /app/node_modules
       - imagenspost:/app/public/images/covers
     env_file:
       - ./mirim-backend/.env
@@ -33,14 +31,12 @@ services:
     build:
       context: ./mirim-frontend
       dockerfile: Dockerfile
+      args:
+        INTERNAL_API_BASE: http://backend:4000
+    environment:
+      - INTERNAL_API_BASE=http://backend:4000
     ports:
       - "3000:3000"
-    volumes:
-      - ./mirim-frontend:/app
-      - /app/node_modules
-      - /app/.next
-    env_file:
-      - ./mirim-frontend/.env
     depends_on:
       - backend
 

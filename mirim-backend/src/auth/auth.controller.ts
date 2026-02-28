@@ -30,13 +30,16 @@ export const singup: RequestHandler = async (req, res) => {
 };
 
 export const singin: RequestHandler = async (req, res) => {
+  try{
+
+  
   const data = singinSchema.safeParse(req.body);
   if (!data.success) {
     return res.status(400).json({ error: data.error.flatten() });
   }
 
   const user = await VerifyUser(data.data);
-
+  console.log("Resultado VerifyUser:", user);
   if (!user) {
     return res.status(403).json({ error: "Access denied" });
   }
@@ -51,6 +54,9 @@ export const singin: RequestHandler = async (req, res) => {
     },
     token,
   });
+}catch(err){
+    console.log(err)
+  }
 };
 
 export const validate = async (req: ExtendedRequest, res: Response) => {

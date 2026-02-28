@@ -12,4 +12,5 @@ export const UpdatePostSchema = z.object({
   title: z.string().optional(),
   tags: z.string().optional(),
   body: z.string().optional(),
+  categoryId:z.coerce.number().optional()
 });
