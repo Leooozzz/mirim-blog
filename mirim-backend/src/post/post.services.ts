@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import fs from "fs/promises";
 import slug from "slug";
+import path from "path";
 
 import { CreateTypePost } from "./post.types";
 import { prisma } from "../libs/prisma";
@@ -8,13 +9,44 @@ import { Prisma } from "../generated/prisma/client";
 
 export const HandleFileCover = async (file: Express.Multer.File) => {
   try {
-    const allowed = ["image/jpeg", "image/jpg", "image/png"];
-    if (allowed.includes(file.mimetype)) {
-      const cover_name = `${v4()}.jpg`;
-      await fs.rename(file.path, `/app/public/images/covers/${cover_name}`);
-      return cover_name;
+    if (!file) {
+      console.error("HandleFileCover: file is undefined");
+      return false;
     }
-  } catch {
+    if (!file.path) {
+      console.error(
+        "HandleFileCover: file.path is undefined (are you using memoryStorage?)",
+      );
+      return false;
+    }
+
+    const allowed = ["image/jpeg", "image/jpg", "image/png"];
+    if (!allowed.includes(file.mimetype)) {
+      console.error("HandleFileCover: mimetype not allowed:", file.mimetype);
+      return false;
+    }
+
+    const coverName = `${v4()}.jpg`;
+    const destDir = path.resolve("/app/public/images/covers");
+    const destPath = path.join(destDir, coverName);
+
+    await fs.mkdir(destDir, { recursive: true });
+
+    try {
+      await fs.rename(file.path, destPath);
+    } catch (err: any) {
+      if (err && err.code === "EXDEV") {
+        await fs.copyFile(file.path, destPath);
+        await fs.unlink(file.path);
+      } else {
+        console.error("HandleFileCover: erro ao mover arquivo:", err);
+        return false;
+      }
+    }
+
+    return coverName;
+  } catch (err) {
+    console.error("HandleFileCover: erro inesperado:", err);
     return false;
   }
 };
