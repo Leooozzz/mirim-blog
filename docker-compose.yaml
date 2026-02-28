@@ -27,7 +27,6 @@ services:
       - ./mirim-backend/.env
     depends_on:
       - db
-    
 
   frontend:
     container_name: mirim-frontend
@@ -44,9 +43,7 @@ services:
       - ./mirim-frontend/.env
     depends_on:
       - backend
-    
 
 volumes:
   banco-data:
   imagenspost:
-
